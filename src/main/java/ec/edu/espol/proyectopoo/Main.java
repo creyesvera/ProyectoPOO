@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ec.edu.espol.proyectopoo;
+import java.util.Scanner;
 
 /**
  *
