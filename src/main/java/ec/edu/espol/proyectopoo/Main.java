@@ -3,67 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espol.proyecto.util;
+package ec.edu.espol.proyectopoo;
+import ec.edu.espol.util.Menu;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Daniel Bejarano
+ * @author camil
  */
-public class Menu {
-
-    private int opcionSubmenu;
-
+public class Main {
     
-    public void SubMenuVendedor(){
-       do{
-           opcionSubmenu = Integer.parseInt(JOptionPane.showInputDialog(null, "Vendedor"
-                            + "\n1. Registrar un nuevo vendedor."
-                            + "\n2. Ingresar un nuevo vehículo."
-                            + "\n3. Aceptar oferta."
-                            + "\n4. Regresar."
-                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                    
-                    switch (opcionSubmenu){
-                        case 1:
-                            JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo vendedor.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        case 2:
-                            JOptionPane.showMessageDialog(null, "Aquí se ingresa un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);                            
-                            break;
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "Aquí se acepta la oferta.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        case 4:
-                            JOptionPane.showMessageDialog(null, "Regresando . . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(null, "No se ha elegido una opción válida","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                    }
-                }while(opcionSubmenu != 4);        
-    }
-    
-    public void SubMenuComprador(){
-       do{
-           opcionSubmenu = Integer.parseInt(JOptionPane.showInputDialog(null, "Comprador"
-                            + "\n1. Registrar un nuevo comprador."
-                            + "\n2. Ofertar por un vehículo."
-                            + "\n3. Regresar ."
-                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                    
-                    switch (opcionSubmenu){
-                        case 1:
-                            JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo compador.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        case 2:
-                            JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);                            
-                            break;
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "Regresando....","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(null, "No se ha elegido una opción válida","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                    }
-                }while(opcionSubmenu != 3);        
-    }    
+    public static void main(String[] args) {
+        int opcionSeleccionada;
+        int opcionSubmenu;
+        ec.edu.espol.util.Menu OBJ=new Menu();
+        do{
+        opcionSeleccionada = Integer.parseInt(JOptionPane.showInputDialog(null, "Menu"
+                            + "\n1. Vendedor."
+                            + "\n2. Comprador."
+                            + "\n3. Salir."
+                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));
+            switch (opcionSeleccionada) {
+                case 1: 
+                    OBJ.SubMenuComprador();
+                    break;
+                case 2:
+                    OBJ.SubMenuVendedor();
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Muchas gracias por adquirir nuestros servicios.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "No ha elegido una opción válida.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+            }
+        }while(opcionSeleccionada !=3);
+    }   
 }
