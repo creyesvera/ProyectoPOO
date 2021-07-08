@@ -3,58 +3,67 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espol.proyectopoo;
-import java.util.Scanner;
+package ec.edu.espol.proyecto.util;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author camil
+ * @author Daniel Bejarano
  */
-public class Main {
+public class Menu {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        int opcion;
-        Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.println("***MENÚ DE OPCIONES***");
-            System.out.println("\t1. Vendedor");
-            System.out.println("\t2. Comprador");
-            System.out.println("\t3. Salir");
-            System.out.println("Una vez escrita la opción, pulse la tecla Enter");
+    private int opcionSubmenu;
 
-            opcion = scanner.nextInt();
-            
-            switch (opcion) {
-                case 1:
-                    System.out.println("Usted ha elegido la opción Vendedor");
-                    System.out.println("\t1. Registrar un nuevo vendedor");
-                    System.out.println("\t2. Ingresar un nuevo vendedor");
-                    System.out.println("\t3. Aceptar oferta");
-                    System.out.println("\t4. Regresar");                    
-                    break;
-                case 2:
-                    System.out.println("Usted ha elegido la opción Comprador");
-                    System.out.println("\t1. Registrar un nuevo comprador");
-                    System.out.println("\t2. Ofertar por un vehículo");                    
-                    break;
-                case 3:
-                    System.out.println("Muchas gracias por usar nuestros servicios.");
-                    break;
-                default:
-                    System.out.println("No ha elegido una opción válida. Ingrese una opción válida.");
-                    break;
-            }
-        } while (opcion != 3);        
-    }
-    //OJO falta 
-    String destinatario =  "alguien@servidor.com"; //A quien le quieres escribir.
-    String asunto = "Oferta de vehiculo";
-    String cuerpo = "El vendedor ha acceptado su oferta";
-
-    enviarConGMail(destinatario, asunto, cuerpo);
     
+    public void SubMenuVendedor(){
+       do{
+           opcionSubmenu = Integer.parseInt(JOptionPane.showInputDialog(null, "Vendedor"
+                            + "\n1. Registrar un nuevo vendedor."
+                            + "\n2. Ingresar un nuevo vehículo."
+                            + "\n3. Aceptar oferta."
+                            + "\n4. Regresar."
+                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                    
+                    switch (opcionSubmenu){
+                        case 1:
+                            JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo vendedor.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        case 2:
+                            JOptionPane.showMessageDialog(null, "Aquí se ingresa un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);                            
+                            break;
+                        case 3:
+                            JOptionPane.showMessageDialog(null, "Aquí se acepta la oferta.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        case 4:
+                            JOptionPane.showMessageDialog(null, "Regresando . . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "No se ha elegido una opción válida","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                    }
+                }while(opcionSubmenu != 4);        
+    }
+    
+    public void SubMenuComprador(){
+       do{
+           opcionSubmenu = Integer.parseInt(JOptionPane.showInputDialog(null, "Comprador"
+                            + "\n1. Registrar un nuevo comprador."
+                            + "\n2. Ofertar por un vehículo."
+                            + "\n3. Regresar ."
+                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                    
+                    switch (opcionSubmenu){
+                        case 1:
+                            JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo compador.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        case 2:
+                            JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);                            
+                            break;
+                        case 3:
+                            JOptionPane.showMessageDialog(null, "Regresando....","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "No se ha elegido una opción válida","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                    }
+                }while(opcionSubmenu != 3);        
+    }    
 }
