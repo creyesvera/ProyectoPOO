@@ -19,11 +19,7 @@ import java.util.Scanner;
  */
 public class Usuario {
     protected int id;
-    protected String nombres;
-    protected String apellidos;
-    protected String correo_elec;
-    protected String organizacion;
-    protected String clave;
+    protected String nombres, apellidos, correo_elec, organizacion, clave;
 
 
     public Usuario(int id, String nombres, String apellidos, String correo_elec, String organizacion, String clave) {
@@ -100,19 +96,7 @@ public class Usuario {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.nombres, other.nombres)) {
-            return false;
-        }
-        if (!Objects.equals(this.apellidos, other.apellidos)) {
-            return false;
-        }
         if (!Objects.equals(this.correo_elec, other.correo_elec)) {
-            return false;
-        }
-        if (!Objects.equals(this.organizacion, other.organizacion)) {
-            return false;
-        }
-        if (!Objects.equals(this.clave, other.clave)) {
             return false;
         }
         return true;
@@ -126,21 +110,16 @@ public class Usuario {
     
     public static void nextUsuario(Scanner sc, String nomfile)
     {
+
+        String correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        String nombres = JOptionPane.showInputDialog(null, "Por favor ingrese sus nombres: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        String apellidos = JOptionPane.showInputDialog(null, "Por favor ingrese sus apellidos: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        String organizacion = JOptionPane.showInputDialog(null, "Por favor ingrese su organización: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         
-        System.out.println("Por favor ingrese sus nombres: ");
-        String nombres = sc.next();
-        System.out.println("Por favor ingrese sus apellidos: ");
-        String apellidos = sc.next();
-            System.out.println("Por favor ingrese su correo electronico: ");
-            String correo_elec = sc.next();
-            //poner al inicio
-        System.out.println("Por favor ingrese su organizacion: ");
-        String organizacion = sc.next();
-        
+        //Realizar la validación
+        String clave = JOptionPane.showInputDialog(null, "Por favor ingrese sus apellidos: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        //El ciclo se repite
             System.out.println("Por favor ingrese su clave: ");
-            String clave = sc.next();
-            //poner al inicion
-            //usar validacion para ver si esta o no registrado en caso de que si no permitir la realizacion de las otras funciones
        
         int id = Util.nextID(nomfile);
         Usuario user = new Usuario(id, nombres, apellidos, correo_elec, organizacion,clave);
