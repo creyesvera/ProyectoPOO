@@ -5,8 +5,10 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.util.Util;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  *
@@ -24,7 +26,7 @@ public class Vendedor extends Usuario{
         return vehiculos;
     }
 
-    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {   
         this.vehiculos = vehiculos;
     }
 
@@ -64,8 +66,24 @@ public class Vendedor extends Usuario{
     }
     
     
+public static Vendedor searchByID(ArrayList<Vendedor> vendedores, int id)
+    {
+        for(Vendedor ven : vendedores)
+        {
+            if(ven.id == id)
+                return ven;
+        }
+        return null;
+    }    
 
-    
-    
+/*
+    public static void vender(Vehiculo vehiculo,String nomfile){       //lista de vehiculos del vendedor
+        int id = Util.nextID(nomfile);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha = sdf.format(new Date());
+        Vehiculo vehiculos = new Vehiculo;
+        r.saveFile(nomfile);
+    }
+*/        
 
 }
