@@ -12,71 +12,12 @@ import java.util.Objects;
  *
  * @author camil
  */
-public class Vendedor {
-    private int id;
-    private String nombres;
-    private String apellidos;
-    private String organizacion;
-    private String correo_elec;
-    private String clave;
+public class Vendedor extends Usuario{
     private ArrayList<Vehiculo> vehiculos;
 
-    public Vendedor(int id, String nombres, String apellidos, String organizacion, String correo_elec, String clave, ArrayList<Vehiculo> vehiculos) {
-        this.id = id;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.organizacion = organizacion;
-        this.correo_elec = correo_elec;
-        this.clave = clave;
-        this.vehiculos = vehiculos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(String organizacion) {
-        this.organizacion = organizacion;
-    }
-
-    public String getCorreo_elec() {
-        return correo_elec;
-    }
-
-    public void setCorreo_elec(String correo_elec) {
-        this.correo_elec = correo_elec;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
+    public Vendedor(int id, String nombres, String apellidos, String correo_elec, String organizacion, String clave) {
+        super(id, nombres, apellidos, correo_elec, organizacion, clave);
+        this.vehiculos = new ArrayList<>();
     }
 
     public ArrayList<Vehiculo> getVehiculos() {
@@ -87,6 +28,11 @@ public class Vendedor {
         this.vehiculos = vehiculos;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -99,25 +45,13 @@ public class Vendedor {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Vendedor other = (Vendedor) obj;
-        if (this.id != other.id) {
+        //comparar atributos que bienen de la clase padre
+        Usuario este_u = this;
+        Usuario other_u = (Usuario) obj;
+        if (!Objects.equals(este_u, other_u))
             return false;
-        }
-        if (!Objects.equals(this.nombres, other.nombres)) {
-            return false;
-        }
-        if (!Objects.equals(this.apellidos, other.apellidos)) {
-            return false;
-        }
-        if (!Objects.equals(this.organizacion, other.organizacion)) {
-            return false;
-        }
-        if (!Objects.equals(this.correo_elec, other.correo_elec)) {
-            return false;
-        }
-        if (!Objects.equals(this.clave, other.clave)) {
-            return false;
-        }
+        //comparar atributo exclusivo de esta clase
+        Vendedor other = (Vendedor) other_u;
         if (!Objects.equals(this.vehiculos, other.vehiculos)) {
             return false;
         }
@@ -126,8 +60,11 @@ public class Vendedor {
 
     @Override
     public String toString() {
-        return "Vendedor{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", organizacion=" + organizacion + ", correo_elec=" + correo_elec + ", clave=" + clave + ", vehiculos=" + vehiculos + '}';
+        return "Vendedor{" +"id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + "vehiculos=" + vehiculos + '}';
     }
+    
+    
+
     
     
 
