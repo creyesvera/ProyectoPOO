@@ -131,12 +131,16 @@ public class Usuario {
         String nombres = sc.next();
         System.out.println("Por favor ingrese sus apellidos: ");
         String apellidos = sc.next();
-        System.out.println("Por favor ingrese su correo electronico: ");
-        String correo_elec = sc.next();
+            System.out.println("Por favor ingrese su correo electronico: ");
+            String correo_elec = sc.next();
+            //poner al inicio
         System.out.println("Por favor ingrese su organizacion: ");
         String organizacion = sc.next();
-        System.out.println("Por favor ingrese su clave: ");
-        String clave = sc.next();
+        
+            System.out.println("Por favor ingrese su clave: ");
+            String clave = sc.next();
+            //poner al inicion
+            //usar validacion para ver si esta o no registrado en caso de que si no permitir la realizacion de las otras funciones
        
         int id = Util.nextID(nomfile);
         Usuario user = new Usuario(id, nombres, apellidos, correo_elec, organizacion,clave);
@@ -169,6 +173,28 @@ public class Usuario {
             System.out.println(e.getMessage());
         }
         return usuarios;
+        
     }
     
+    
+    public static Usuario searchByID(ArrayList<Usuario> usuarios, int id)
+    {
+        for(Usuario user : usuarios)
+        {
+            if(user.id == id)
+                return user;
+        }
+        return null;
+    }    
+    
+    public static Usuario searchByCorreoYClave(ArrayList<Usuario> usuarios, String correo,String clave)
+    {
+        for(Usuario user : usuarios)
+        {
+            if(user.correo_elec.equals(correo) && user.clave.equals(clave) )
+                return user;
+        }
+        return null;
+    }
+   
 }
