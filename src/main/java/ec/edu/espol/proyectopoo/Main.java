@@ -50,5 +50,11 @@ public class Main {
             }
         } while (opcion != 3);        
     }
+    //OJO falta 
+    String destinatario =  "alguien@servidor.com"; //A quien le quieres escribir.
+    String asunto = "Oferta de vehiculo";
+    String cuerpo = "El vendedor ha acceptado su oferta";
+
+    enviarConGMail(destinatario, asunto, cuerpo);
     
 }
