@@ -23,7 +23,7 @@ public class Vehiculo {
     protected String marca;
     protected String modelo;
     protected String tipo_motor;
-    protected String year;
+    protected int year;
     protected double recorrido;
     protected String color;
     protected String tipo_combustible;
@@ -32,9 +32,11 @@ public class Vehiculo {
     protected double traccion;
     protected double precio;
     protected ArrayList<Oferta> ofertas;
+    protected Vendedor vendedor; ////
+    protected int id_vendedor;  ////
 
     //constructor de carros, no tiene traccion
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double precio) {
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, int year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double precio, int id_vendedor) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -48,11 +50,12 @@ public class Vehiculo {
         this.transmicion = transmicion;
         this.precio = precio;
         this.ofertas = new ArrayList<>();
+        this.id_vendedor = id_vendedor;
         
     }
    
     //constructor de motos, no tiene vidrios, transmicion y traccion
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, double precio) {
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, int year, double recorrido, String color, String tipo_combustible, double precio, int id_vendedor) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -64,12 +67,13 @@ public class Vehiculo {
         this.tipo_combustible = tipo_combustible;
         this.precio = precio;
         this.ofertas = new ArrayList<>();
+        this.id_vendedor = id_vendedor;
         
         this.transmicion = "no";
     }
     
     //construcctor de camionetas tiene todo
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double traccion, double precio) {
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, int year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double traccion, double precio, int id_vendedor) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -84,6 +88,7 @@ public class Vehiculo {
         this.traccion = traccion;
         this.precio = precio;
         this.ofertas = new ArrayList<>();
+        this.id_vendedor = id_vendedor;
     }
 
     //getters y setters
@@ -127,11 +132,11 @@ public class Vehiculo {
         this.tipo_motor = tipo_motor;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -198,6 +203,24 @@ public class Vehiculo {
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public int getId_vendedor() {
+        return id_vendedor;
+    }
+
+    public void setId_vendedor(int id_vendedor) {
+        this.id_vendedor = id_vendedor;
+    }
+    
+    
     
     
     //equals -- revisar comparacion vidrios transmicion y traccion
@@ -263,9 +286,8 @@ public class Vehiculo {
         return "Vehiculo{" + "id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", tipo_motor=" + tipo_motor + ", year=" + year + ", recorrido=" + recorrido + ", color=" + color + ", tipo_combustible=" + tipo_combustible + ", vidrios=" + vidrios + ", transmicion=" + transmicion + ", traccion=" + traccion + ", precio=" + precio + ", ofertas=" + ofertas + '}';
     }
     
-    public static void nextVehiculo(Scanner sc, String nomfile)
+    public static void nextVehiculo(Scanner sc, String nomfile, Vendedor vendedor)
     {
-        
         System.out.println("Por favor ingrese el numero de placa: ");
         String placa = sc.next();
         System.out.println("Por favor ingrese la marca: ");
@@ -275,7 +297,7 @@ public class Vehiculo {
         System.out.println("Por favor ingrese el tipo de motor: ");
         String tipo_motor = sc.next();
         System.out.println("Por favor ingrese el año: ");
-        String year = sc.next();
+        int year = sc.nextInt();
         System.out.println("Por favor ingrese el recorrido: ");
         double recorrido = sc.nextDouble();
         System.out.println("Por favor ingrese el color: ");
@@ -285,6 +307,7 @@ public class Vehiculo {
         System.out.println("Por favor ingrese el precio: ");
         double precio = sc.nextDouble();
         int id = Util.nextID(nomfile);
+        int id_vendedor = vendedor.getId();
         int opcion;
         
         do{
@@ -301,25 +324,26 @@ public class Vehiculo {
             System.out.println("Por favor ingrese la transmicion: ");
             transmicion = sc.next();
             //carros
-            vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio);
+            vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio,id_vendedor);
             if(opcion == 3){
                 System.out.println("Por favor ingrese la traccion");
                 traccion = sc.nextDouble();
                 //camionetas
-                vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio);
+                vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio,id_vendedor);
             }
         }
         else    //motos
-            vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, precio);
+            vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, precio,id_vendedor);
         
         
         vehicle.saveFile(nomfile);
+
     }
     
     public void saveFile(String nomfile){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
-            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.year+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_combustible+"|"+this.vidrios+"|"+this.transmicion+"|"+this.traccion+"|"+this.precio);
+            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.year+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_combustible+"|"+this.vidrios+"|"+this.transmicion+"|"+this.traccion+"|"+this.precio+"|"+this.id_vendedor);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -334,7 +358,7 @@ public class Vehiculo {
                 // linea = "1|20201010|eduardo|cruz"
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
-                Vehiculo vehicle = new Vehiculo(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], Double.parseDouble(tokens[6]), tokens[7], tokens[8], Integer.parseInt(tokens[9]), tokens[10], Double.parseDouble(tokens[11]), Double.parseDouble(tokens[12]));
+                Vehiculo vehicle = new Vehiculo(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Integer.parseInt(tokens[9]), tokens[10], Double.parseDouble(tokens[11]), Double.parseDouble(tokens[12]),Integer.parseInt(tokens[13]));
                 vehiculos.add(vehicle);
             }
         }
@@ -343,4 +367,74 @@ public class Vehiculo {
         }
         return vehiculos;
     }
+    
+    public static void link(ArrayList<Vendedor> vendedores, ArrayList<Vehiculo> vehiculos){
+        for(Vehiculo v: vehiculos){
+            Vendedor ven = Vendedor.searchByID(vendedores, v.getId_vendedor());
+            ven.getVehiculos().add(v);
+            v.setVendedor(ven);
+        }
+    }
+    
+    public static Vehiculo searchByID(ArrayList<Vehiculo> vehiculos, int id)
+    {
+        for(Vehiculo veh : vehiculos)
+        {
+            if(veh.id == id)
+                return veh;
+        }
+        return null;
+    }
+    
+    public static Vehiculo searchByPlaca(ArrayList<Vehiculo> vehiculos, String placa)
+    {
+        for(Vehiculo veh : vehiculos)
+        {
+            if(veh.placa.equals(placa))
+                return veh;
+        }
+        return null;
+    }
+
+    public static Vehiculo searchByTipo(ArrayList<Vehiculo> vehiculos, String tipo)
+    {
+        for(Vehiculo veh : vehiculos)
+        {
+            if(veh.tipo_motor.equals(tipo))
+                return veh;
+        }
+        return null;
+    }    
+    
+    public static Vehiculo searchByRecorrido(ArrayList<Vehiculo> vehiculos, double max_rec, double min_rec)
+    {
+        for(Vehiculo veh : vehiculos)
+        {
+            if(veh.recorrido<= max_rec && veh.recorrido>= max_rec)
+                return veh;
+        }
+        return null;
+    }
+    
+    public static Vehiculo searchByPrecio(ArrayList<Vehiculo> vehiculos, double max_prec, double min_prec)
+    {
+        for(Vehiculo veh : vehiculos)
+        {
+            if(veh.precio<= max_prec && veh.precio>= min_prec)
+                return veh;
+        }
+        return null;
+    }
+    
+    public static Vehiculo searchByYear(ArrayList<Vehiculo> vehiculos, int max_year, int min_year)
+    {
+        for(Vehiculo veh : vehiculos)
+        {
+            if(veh.year<= max_year && veh.year >= min_year)
+                return veh;
+        }
+        return null;
+    }
+    
+    
 }
