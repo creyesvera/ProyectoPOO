@@ -5,8 +5,13 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.util.Util;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  *
@@ -22,10 +27,32 @@ public class Vehiculo {
     protected double recorrido;
     protected String color;
     protected String tipo_combustible;
+    protected int vidrios;
+    protected String transmicion;
+    protected double traccion;
     protected double precio;
     protected ArrayList<Oferta> ofertas;
 
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, double precio, ArrayList<Oferta> ofertas) {
+    //constructor de carros, no tiene traccion
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double precio) {
+        this.id = id;
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.tipo_motor = tipo_motor;
+        this.year = year;
+        this.recorrido = recorrido;
+        this.color = color;
+        this.tipo_combustible = tipo_combustible;
+        this.vidrios = vidrios;
+        this.transmicion = transmicion;
+        this.precio = precio;
+        this.ofertas = new ArrayList<>();
+        
+    }
+   
+    //constructor de motos, no tiene vidrios, transmicion y traccion
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, double precio) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -36,9 +63,30 @@ public class Vehiculo {
         this.color = color;
         this.tipo_combustible = tipo_combustible;
         this.precio = precio;
-        this.ofertas = ofertas;
+        this.ofertas = new ArrayList<>();
+        
+        this.transmicion = "no";
+    }
+    
+    //construcctor de camionetas tiene todo
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, String year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double traccion, double precio) {
+        this.id = id;
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.tipo_motor = tipo_motor;
+        this.year = year;
+        this.recorrido = recorrido;
+        this.color = color;
+        this.tipo_combustible = tipo_combustible;
+        this.vidrios = vidrios;
+        this.transmicion = transmicion;
+        this.traccion = traccion;
+        this.precio = precio;
+        this.ofertas = new ArrayList<>();
     }
 
+    //getters y setters
     public int getId() {
         return id;
     }
@@ -111,6 +159,30 @@ public class Vehiculo {
         this.tipo_combustible = tipo_combustible;
     }
 
+    public int getVidrios() {
+        return vidrios;
+    }
+
+    public void setVidrios(int vidrios) {
+        this.vidrios = vidrios;
+    }
+
+    public String getTransmicion() {
+        return transmicion;
+    }
+
+    public void setTransmicion(String transmicion) {
+        this.transmicion = transmicion;
+    }
+
+    public double getTraccion() {
+        return traccion;
+    }
+
+    public void setTraccion(double traccion) {
+        this.traccion = traccion;
+    }
+
     public double getPrecio() {
         return precio;
     }
@@ -126,8 +198,9 @@ public class Vehiculo {
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
-
-
+    
+    
+    //equals -- revisar comparacion vidrios transmicion y traccion
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -144,6 +217,12 @@ public class Vehiculo {
             return false;
         }
         if (Double.doubleToLongBits(this.recorrido) != Double.doubleToLongBits(other.recorrido)) {
+            return false;
+        }
+        if (this.vidrios != other.vidrios) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.traccion) != Double.doubleToLongBits(other.traccion)) {
             return false;
         }
         if (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) {
@@ -170,15 +249,98 @@ public class Vehiculo {
         if (!Objects.equals(this.tipo_combustible, other.tipo_combustible)) {
             return false;
         }
+        if (!Objects.equals(this.transmicion, other.transmicion)) {
+            return false;
+        }
         if (!Objects.equals(this.ofertas, other.ofertas)) {
             return false;
         }
         return true;
     }
-    
-    
+
     @Override
     public String toString() {
-        return "Vehiculo{" + "id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", tipo_motor=" + tipo_motor + ", year=" + year + ", recorrido=" + recorrido + ", color=" + color + ", tipo_combustible=" + tipo_combustible + ", precio=" + precio + ", ofertas=" + ofertas + '}';
+        return "Vehiculo{" + "id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", tipo_motor=" + tipo_motor + ", year=" + year + ", recorrido=" + recorrido + ", color=" + color + ", tipo_combustible=" + tipo_combustible + ", vidrios=" + vidrios + ", transmicion=" + transmicion + ", traccion=" + traccion + ", precio=" + precio + ", ofertas=" + ofertas + '}';
+    }
+    
+    public static void nextVehiculo(Scanner sc, String nomfile)
+    {
+        
+        System.out.println("Por favor ingrese el numero de placa: ");
+        String placa = sc.next();
+        System.out.println("Por favor ingrese la marca: ");
+        String marca = sc.next();
+        System.out.println("Por favor ingrese el modelo: ");
+        String modelo = sc.next();
+        System.out.println("Por favor ingrese el tipo de motor: ");
+        String tipo_motor = sc.next();
+        System.out.println("Por favor ingrese el año: ");
+        String year = sc.next();
+        System.out.println("Por favor ingrese el recorrido: ");
+        double recorrido = sc.nextDouble();
+        System.out.println("Por favor ingrese el color: ");
+        String color = sc.next();
+        System.out.println("Por favor ingrese el tipo de combustible: ");
+        String tipo_combustible = sc.next();
+        System.out.println("Por favor ingrese el precio: ");
+        double precio = sc.nextDouble();
+        int id = Util.nextID(nomfile);
+        int opcion;
+        
+        do{
+            System.out.println("Por favor digite \n1 si el vehiculo es un carro\n2 si el vehiculo es una moto \n3 si el vehiculo es una camioneta");
+            opcion = sc.nextInt();
+        }while(opcion != 3);
+        int vidrios;
+        String transmicion;            
+        double traccion;
+        Vehiculo vehicle;
+        if (opcion != 2){
+            System.out.println("Por favor ingrese el numero de vidrios: ");
+            vidrios = sc.nextInt();
+            System.out.println("Por favor ingrese la transmicion: ");
+            transmicion = sc.next();
+            //carros
+            vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio);
+            if(opcion == 3){
+                System.out.println("Por favor ingrese la traccion");
+                traccion = sc.nextDouble();
+                //camionetas
+                vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio);
+            }
+        }
+        else    //motos
+            vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, precio);
+        
+        
+        vehicle.saveFile(nomfile);
+    }
+    
+    public void saveFile(String nomfile){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
+        {
+            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.year+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_combustible+"|"+this.vidrios+"|"+this.transmicion+"|"+this.traccion+"|"+this.precio);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static ArrayList<Vehiculo> readFile(String nomfile){
+        ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(nomfile))){
+            while(sc.hasNextLine())
+            {
+                // linea = "1|20201010|eduardo|cruz"
+                String linea = sc.nextLine();
+                String[] tokens = linea.split("\\|");
+                Vehiculo vehicle = new Vehiculo(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], Double.parseDouble(tokens[6]), tokens[7], tokens[8], Integer.parseInt(tokens[9]), tokens[10], Double.parseDouble(tokens[11]), Double.parseDouble(tokens[12]));
+                vehiculos.add(vehicle);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return vehiculos;
     }
 }
