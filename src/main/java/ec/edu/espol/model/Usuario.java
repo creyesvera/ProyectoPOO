@@ -111,16 +111,20 @@ public class Usuario {
     
     public static void nextUsuario(Scanner sc, String nomfile)
     {
-
-        String correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        String correo_elec,clave;
+        ArrayList<Usuario> usuarios = Usuario.readFile(nomfile);
+        do{
+        correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+         //Realizar la validación
+        clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        //El ciclo se repite
+        } while(!Util.ValidacionCorreoYClave(correo_elec,clave, usuarios))
+        
+        
         String nombres = JOptionPane.showInputDialog(null, "Por favor ingrese sus nombres: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         String apellidos = JOptionPane.showInputDialog(null, "Por favor ingrese sus apellidos: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         String organizacion = JOptionPane.showInputDialog(null, "Por favor ingrese su organización: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
-        
-        //Realizar la validación
-        String clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
-        //El ciclo se repite
-            System.out.println("Por favor ingrese su clave: ");
+               
        
         int id = Util.nextID(nomfile);
         Usuario user = new Usuario(id, nombres, apellidos, correo_elec, organizacion,clave);
