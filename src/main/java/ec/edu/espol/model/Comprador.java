@@ -63,6 +63,14 @@ public class Comprador extends Usuario{
         return "Comprador{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + "ofertas=" + ofertas + '}';
     }
     
-
+public static Comprador searchByID(ArrayList<Comprador> compradores, int id)
+    {
+        for(Comprador comp : compradores)
+        {
+            if(comp.id == id)
+                return comp;
+        }
+        return null;
+    }    
     
 }
