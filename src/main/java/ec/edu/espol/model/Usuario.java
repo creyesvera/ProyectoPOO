@@ -118,7 +118,7 @@ public class Usuario {
         String organizacion = JOptionPane.showInputDialog(null, "Por favor ingrese su organización: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         
         //Realizar la validación
-        String clave = JOptionPane.showInputDialog(null, "Por favor ingrese sus apellidos: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        String clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         //El ciclo se repite
             System.out.println("Por favor ingrese su clave: ");
        
