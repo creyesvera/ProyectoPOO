@@ -288,24 +288,16 @@ public class Vehiculo {
     
     public static void nextVehiculo(Scanner sc, String nomfile, Vendedor vendedor)
     {
-        System.out.println("Por favor ingrese el numero de placa: ");
-        String placa = sc.next();
-        System.out.println("Por favor ingrese la marca: ");
-        String marca = sc.next();
-        System.out.println("Por favor ingrese el modelo: ");
-        String modelo = sc.next();
-        System.out.println("Por favor ingrese el tipo de motor: ");
-        String tipo_motor = sc.next();
-        System.out.println("Por favor ingrese el año: ");
-        int year = sc.nextInt();
-        System.out.println("Por favor ingrese el recorrido: ");
-        double recorrido = sc.nextDouble();
-        System.out.println("Por favor ingrese el color: ");
-        String color = sc.next();
-        System.out.println("Por favor ingrese el tipo de combustible: ");
-        String tipo_combustible = sc.next();
-        System.out.println("Por favor ingrese el precio: ");
-        double precio = sc.nextDouble();
+        String placa = JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        //validarplaca
+        String marca = JOptionPane.showInputDialog(null, "Por favor ingrese la marca: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        String modelo = JOptionPane.showInputDialog(null, "Por favor ingrese el modelo: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        String tipo_motor = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de motor: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        int year = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el año: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        double recorrido = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el recorrido: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        String color = JOptionPane.showInputDialog(null, "Por favor ingrese el color: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        String tipo_combustible = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de combustible: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        double precio =  Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
         int id = Util.nextID(nomfile);
         int id_vendedor = vendedor.getId();
         int opcion;
@@ -319,15 +311,12 @@ public class Vehiculo {
         double traccion;
         Vehiculo vehicle;
         if (opcion != 2){
-            System.out.println("Por favor ingrese el numero de vidrios: ");
-            vidrios = sc.nextInt();
-            System.out.println("Por favor ingrese la transmicion: ");
-            transmicion = sc.next();
+            vidrios = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el numero de vidrios: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            transmicion = JOptionPane.showInputDialog(null, "Por favor ingrese la transmicion: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
             //carros
             vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio,id_vendedor);
             if(opcion == 3){
-                System.out.println("Por favor ingrese la traccion");
-                traccion = sc.nextDouble();
+                traccion = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese la traccion: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
                 //camionetas
                 vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio,id_vendedor);
             }
@@ -436,5 +425,15 @@ public class Vehiculo {
         return null;
     }
     
+    public static void saveFile(String nomfile,ArrayList<Vehiculo> vehiculos){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
+        {
+            for (Vehiculo v: vehiculos)
+                pw.println(v.id+"|"+v.placa+"|"+v.marca+"|"+v.modelo+"|"+v.tipo_motor+"|"+v.year+"|"+v.recorrido+"|"+v.color+"|"+v.tipo_combustible+"|"+v.vidrios+"|"+v.transmicion+"|"+v.traccion+"|"+v.precio+"|"+v.id_vendedor);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
     
 }
