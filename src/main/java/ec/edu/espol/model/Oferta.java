@@ -166,6 +166,17 @@ public class Oferta {
         }
         return null;
     }
+    
+    public static void saveFile(String nomfile,ArrayList<Oferta> ofertas){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
+        {
+            for (Oferta o: ofertas)
+                pw.println(o.id+"|"+o.id_comprador+"|"+o.id_vehiculo+"|"+o.precio);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
  
     /*
     public static Oferta deleteByID(ArrayList<Oferta> ofertas, int id)
