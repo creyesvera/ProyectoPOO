@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -286,37 +287,40 @@ public class Vehiculo {
         return "Vehiculo{" + "id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", tipo_motor=" + tipo_motor + ", year=" + year + ", recorrido=" + recorrido + ", color=" + color + ", tipo_combustible=" + tipo_combustible + ", vidrios=" + vidrios + ", transmicion=" + transmicion + ", traccion=" + traccion + ", precio=" + precio + ", ofertas=" + ofertas + '}';
     }
     
-    public static void nextVehiculo(Scanner sc, String nomfile, Vendedor vendedor)
+    public static void nextVehiculo(String nomfile, Vendedor vendedor)
     {
         String placa = JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         //validarplaca
         String marca = JOptionPane.showInputDialog(null, "Por favor ingrese la marca: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String modelo = JOptionPane.showInputDialog(null, "Por favor ingrese el modelo: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String tipo_motor = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de motor: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        int year = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el año: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
-        double recorrido = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el recorrido: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        int year = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el año: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
+        double recorrido = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el recorrido: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
         String color = JOptionPane.showInputDialog(null, "Por favor ingrese el color: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String tipo_combustible = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de combustible: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        double precio =  Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        double precio =  Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
         int id = Util.nextID(nomfile);
         int id_vendedor = vendedor.getId();
         int opcion;
         
-        do{
-            System.out.println("Por favor digite \n1 si el vehiculo es un carro\n2 si el vehiculo es una moto \n3 si el vehiculo es una camioneta");
-            opcion = sc.nextInt();
-        }while(opcion != 3);
+        do{            
+            opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Por favor digite:"
+                            + "\n1. Si el vehículo es un carro."
+                            + "\n2. Si el vehículo es una moto."
+                            + "\n3. Si el vehículo es una camioneta."
+                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                                                
+        }while(!(opcion <= 3 && opcion >= 0));
         int vidrios;
         String transmicion;            
         double traccion;
         Vehiculo vehicle;
         if (opcion != 2){
-            vidrios = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el numero de vidrios: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            vidrios = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el numero de vidrios: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
             transmicion = JOptionPane.showInputDialog(null, "Por favor ingrese la transmicion: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
             //carros
             vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio,id_vendedor);
             if(opcion == 3){
-                traccion = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese la traccion: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                traccion = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese la traccion: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
                 //camionetas
                 vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio,id_vendedor);
             }
@@ -357,9 +361,9 @@ public class Vehiculo {
         return vehiculos;
     }
     
-    public static void link(ArrayList<Vendedor> vendedores, ArrayList<Vehiculo> vehiculos){
+    public static void link(ArrayList<Usuario> vendedores, ArrayList<Vehiculo> vehiculos){
         for(Vehiculo v: vehiculos){
-            Vendedor ven = Vendedor.searchByID(vendedores, v.getId_vendedor());
+            Vendedor ven = (Vendedor) Usuario.searchByID(vendedores, v.getId_vendedor());
             ven.getVehiculos().add(v);
             v.setVendedor(ven);
         }
@@ -387,7 +391,7 @@ public class Vehiculo {
 
     public static ArrayList<Vehiculo> searchByTipo(ArrayList<Vehiculo> vehiculos, String tipo)
     {
-        ArrayList<Vehiculo> filtro_vehiculos;
+        ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
         for(Vehiculo veh : vehiculos)
         {
             if(veh.tipo_motor.equals(tipo))
@@ -398,7 +402,7 @@ public class Vehiculo {
     
     public static ArrayList<Vehiculo> searchByRecorrido(ArrayList<Vehiculo> vehiculos, double max_rec, double min_rec)
     {
-        ArrayList<Vehiculo> filtro_vehiculos;
+        ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
         for(Vehiculo veh : vehiculos)
         {
             if(veh.recorrido<= max_rec && veh.recorrido>= max_rec)
@@ -409,7 +413,7 @@ public class Vehiculo {
     
     public static ArrayList<Vehiculo> searchByPrecio(ArrayList<Vehiculo> vehiculos, double max_prec, double min_prec)
     {
-        ArrayList<Vehiculo> filtro_vehiculos;
+        ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
         for(Vehiculo veh : vehiculos)
         {
             if(veh.precio<= max_prec && veh.precio>= min_prec)
@@ -420,7 +424,7 @@ public class Vehiculo {
     
     public static ArrayList<Vehiculo> searchByYear(ArrayList<Vehiculo> vehiculos, int max_year, int min_year)
     {
-        ArrayList<Vehiculo> filtro_vehiculos;
+        ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
         for(Vehiculo veh : vehiculos)
         {
             if(veh.year<= max_year && veh.year >= min_year)
