@@ -101,15 +101,6 @@ public class Oferta {
         if (this.id_vehiculo != other.id_vehiculo) {
             return false;
         }
-        if (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) {
-            return false;
-        }
-        if (!Objects.equals(this.comprador, other.comprador)) {
-            return false;
-        }
-        if (!Objects.equals(this.vehiculo, other.vehiculo)) {
-            return false;
-        }
         return true;
     }
 
@@ -133,7 +124,6 @@ public class Oferta {
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {
-                // linea = "1|1|1|27-06-2021"
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
                 Oferta r = new Oferta(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]),Double.parseDouble(tokens[3]));
