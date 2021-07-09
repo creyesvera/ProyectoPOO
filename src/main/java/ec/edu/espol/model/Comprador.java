@@ -62,15 +62,13 @@ public class Comprador extends Usuario{
     public String toString() {
         return "Comprador{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + "ofertas=" + ofertas + '}';
     }
+        
     
-public static Comprador searchByID(ArrayList<Comprador> compradores, int id)
-    {
-        for(Comprador comp : compradores)
-        {
-            if(comp.id == id)
-                return comp;
-        }
-        return null;
-    }    
+    public static void comprar(Vehiculo v, String nomfile){ //ofertas.txt
+        int id_oferta = Util.nextID(nomfile);
+        //pedir precio 
+        Oferta new_oferta = Oferta(id_oferta, this.id, v.getId, precio);
+        new_oferta.saveFile(nomfile);
+    }
     
 }
