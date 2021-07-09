@@ -385,44 +385,48 @@ public class Vehiculo {
         return null;
     }
 
-    public static Vehiculo searchByTipo(ArrayList<Vehiculo> vehiculos, String tipo)
+    public static ArrayList<Vehiculo> searchByTipo(ArrayList<Vehiculo> vehiculos, String tipo)
     {
+        ArrayList<Vehiculo> filtro_vehiculos;
         for(Vehiculo veh : vehiculos)
         {
             if(veh.tipo_motor.equals(tipo))
-                return veh;
+                filtro_vehiculos.add(veh);
         }
-        return null;
+        return filtro_vehiculos;
     }    
     
-    public static Vehiculo searchByRecorrido(ArrayList<Vehiculo> vehiculos, double max_rec, double min_rec)
+    public static ArrayList<Vehiculo> searchByRecorrido(ArrayList<Vehiculo> vehiculos, double max_rec, double min_rec)
     {
+        ArrayList<Vehiculo> filtro_vehiculos;
         for(Vehiculo veh : vehiculos)
         {
             if(veh.recorrido<= max_rec && veh.recorrido>= max_rec)
-                return veh;
+                filtro_vehiculos.add(veh);
         }
-        return null;
+        return filtro_vehiculos;
     }
     
-    public static Vehiculo searchByPrecio(ArrayList<Vehiculo> vehiculos, double max_prec, double min_prec)
+    public static ArrayList<Vehiculo> searchByPrecio(ArrayList<Vehiculo> vehiculos, double max_prec, double min_prec)
     {
+        ArrayList<Vehiculo> filtro_vehiculos;
         for(Vehiculo veh : vehiculos)
         {
             if(veh.precio<= max_prec && veh.precio>= min_prec)
-                return veh;
+                filtro_vehiculos.add(veh);
         }
-        return null;
+        return filtro_vehiculos;
     }
     
-    public static Vehiculo searchByYear(ArrayList<Vehiculo> vehiculos, int max_year, int min_year)
+    public static ArrayList<Vehiculo> searchByYear(ArrayList<Vehiculo> vehiculos, int max_year, int min_year)
     {
+        ArrayList<Vehiculo> filtro_vehiculos;
         for(Vehiculo veh : vehiculos)
         {
             if(veh.year<= max_year && veh.year >= min_year)
-                return veh;
+                filtro_vehiculos.add(veh);
         }
-        return null;
+        return filtro_vehiculos;
     }
     
     public static void saveFile(String nomfile,ArrayList<Vehiculo> vehiculos){
