@@ -76,14 +76,18 @@ public static Vendedor searchByID(ArrayList<Vendedor> vendedores, int id)
         return null;
     }    
 
-/*
-    public static void vender(Vehiculo vehiculo,String nomfile){       //lista de vehiculos del vendedor
-        int id = Util.nextID(nomfile);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = sdf.format(new Date());
-        Vehiculo vehiculos = new Vehiculo;
-        r.saveFile(nomfile);
-    }
-*/        
+
+    public static void vender(Vehiculo v,String nomfile_vehiculos, String nomfile_ofertas){       //lista de vehiculos del vendedor
+        ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(nomfile_vehiculos);
+        vehiculos.remove(v);
+        Vehiculo.saveFile(nomfile_vehiculos,vehiculos);
+        ArrayList<Oferta> ofertas_v = v.getOfertas();
+        ArrayList<Oferta> ofertas = Oferta.readFile(nomfile_ofertas);
+        for(Oferta o : ofertas_v)
+            ofertas.remove(o);
+        Oferta.saveFile(nomfile_ofertas,ofertas);
+
+        }
+       
 
 }
