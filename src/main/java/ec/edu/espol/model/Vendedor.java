@@ -8,7 +8,7 @@ package ec.edu.espol.model;
 import ec.edu.espol.util.Util;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Scanner;
+
 
 /**
  *
