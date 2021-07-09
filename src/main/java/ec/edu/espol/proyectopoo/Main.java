@@ -15,7 +15,6 @@ public class Main {
     
     public static void main(String[] args) {
         int opcionSeleccionada;
-        int opcionSubmenu;
         ec.edu.espol.util.Menu OBJ=new Menu();
         do{
         opcionSeleccionada = Integer.parseInt(JOptionPane.showInputDialog(null, "Menu"
