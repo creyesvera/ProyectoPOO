@@ -31,36 +31,6 @@ public class Comprador extends Usuario{
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        //comparar atributos que bienen de la clase padre
-        Usuario este_u = this;
-        Usuario other_u = (Usuario) obj;
-        if (!Objects.equals(este_u, other_u))
-            return false;
-        //comparar atributo exclusivo de esta clase
-        Comprador other = (Comprador) other_u;
-        if (!Objects.equals(this.ofertas, other.ofertas)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "Comprador{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + "ofertas=" + ofertas + '}';
     }
