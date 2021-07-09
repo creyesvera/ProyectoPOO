@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espol.proyecto.util;
+package ec.edu.espol.util;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 public class Menu {
 
     private int opcionSubmenu;
-
     
     public void SubMenuVendedor(){
        do{
