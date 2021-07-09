@@ -67,7 +67,7 @@ public class Comprador extends Usuario{
     
     public static void comprar(Vehiculo v, String nomfile){ //ofertas.txt
         int id_oferta = Util.nextID(nomfile);
-        double precio = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE); 
+        double precio = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el "." como separador decimal:", "CompraVende", JOptionPane.INFORMATION_MESSAGE); 
         Oferta new_oferta = Oferta(id_oferta, this.id, v.getId, precio);
         new_oferta.saveFile(nomfile);
     }
