@@ -7,6 +7,7 @@ package ec.edu.espol.model;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,7 +67,7 @@ public class Comprador extends Usuario{
     
     public static void comprar(Vehiculo v, String nomfile){ //ofertas.txt
         int id_oferta = Util.nextID(nomfile);
-        //pedir precio 
+        double precio = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE); 
         Oferta new_oferta = Oferta(id_oferta, this.id, v.getId, precio);
         new_oferta.saveFile(nomfile);
     }
