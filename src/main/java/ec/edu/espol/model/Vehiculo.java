@@ -240,43 +240,7 @@ public class Vehiculo {
         if (this.id != other.id) {
             return false;
         }
-        if (Double.doubleToLongBits(this.recorrido) != Double.doubleToLongBits(other.recorrido)) {
-            return false;
-        }
-        if (this.vidrios != other.vidrios) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.traccion) != Double.doubleToLongBits(other.traccion)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) {
-            return false;
-        }
         if (!Objects.equals(this.placa, other.placa)) {
-            return false;
-        }
-        if (!Objects.equals(this.marca, other.marca)) {
-            return false;
-        }
-        if (!Objects.equals(this.modelo, other.modelo)) {
-            return false;
-        }
-        if (!Objects.equals(this.tipo_motor, other.tipo_motor)) {
-            return false;
-        }
-        if (!Objects.equals(this.year, other.year)) {
-            return false;
-        }
-        if (!Objects.equals(this.color, other.color)) {
-            return false;
-        }
-        if (!Objects.equals(this.tipo_combustible, other.tipo_combustible)) {
-            return false;
-        }
-        if (!Objects.equals(this.transmicion, other.transmicion)) {
-            return false;
-        }
-        if (!Objects.equals(this.ofertas, other.ofertas)) {
             return false;
         }
         return true;
