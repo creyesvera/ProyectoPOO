@@ -177,17 +177,4 @@ public class Oferta {
             System.out.println(e.getMessage());
         }
     }
- 
-    /*
-    public static Oferta deleteByID(ArrayList<Oferta> ofertas, int id)
-    {
-        for(Oferta o : ofertas)
-        {
-            if(o.id == id)
-                return o;
-        }
-        return null;
-    }
-
-*/
 }
