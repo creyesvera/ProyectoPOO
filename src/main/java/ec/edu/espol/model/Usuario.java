@@ -118,7 +118,7 @@ public class Usuario {
          //Realizar la validación
         clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         //El ciclo se repite
-        } while(!Util.ValidacionCorreoYClave(correo_elec,clave, usuarios))
+        } while(!Util.validacionCorreoClave(correo_elec,clave, usuarios))
         
         
         String nombres = JOptionPane.showInputDialog(null, "Por favor ingrese sus nombres: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
