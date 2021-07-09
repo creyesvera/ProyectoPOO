@@ -65,16 +65,6 @@ public class Vendedor extends Usuario{
         return "Vendedor{" +"id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + "vehiculos=" + vehiculos + '}';
     }
     
-    
-public static Vendedor searchByID(ArrayList<Vendedor> vendedores, int id)
-    {
-        for(Vendedor ven : vendedores)
-        {
-            if(ven.id == id)
-                return ven;
-        }
-        return null;
-    }    
 
 
     public static void vender(Vehiculo v,String nomfile_vehiculos, String nomfile_ofertas){       //lista de vehiculos del vendedor
