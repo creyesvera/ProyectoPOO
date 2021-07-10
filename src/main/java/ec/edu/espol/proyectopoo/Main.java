@@ -15,7 +15,6 @@ public class Main {
     
     public static void main(String[] args) {
         int opcionSeleccionada;
-        ec.edu.espol.util.Menu OBJ=new Menu();
         do{
         opcionSeleccionada = Integer.parseInt(JOptionPane.showInputDialog(null, "Menu"
                             + "\n1. Vendedor."
@@ -24,10 +23,10 @@ public class Main {
                             + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));
             switch (opcionSeleccionada) {
                 case 1: 
-                    OBJ.SubMenuComprador();
+                    Menu.SubMenuVendedor();
                     break;
                 case 2:
-                    OBJ.SubMenuVendedor();
+                    Menu.SubMenuComprador();
                     break;
                 case 3:
                     JOptionPane.showMessageDialog(null, "Muchas gracias por adquirir nuestros servicios.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
