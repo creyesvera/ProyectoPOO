@@ -83,7 +83,7 @@ public class Util {
     
     Properties props = System.getProperties();
     props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
-    props.put("mail.smtp.user", remitente);
+    props.put("mail.smtp.user", remitente); // Direccion del Remitente del mensaje
     props.put("mail.smtp.clave", clave);    //La clave de la cuenta
     props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
     props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
@@ -94,7 +94,7 @@ public class Util {
 
     try {
         message.setFrom(new InternetAddress(remitente));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));   //Se podrían añadir varios de la misma manera
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));   //Se obtiene del address del destinatario y se podrían añadir varios de la misma manera
         message.setSubject(asunto);
         message.setText(cuerpo);
         Transport transport = session.getTransport("smtp");
