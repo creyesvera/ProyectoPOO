@@ -100,23 +100,6 @@ public class Util {
     }
   
     
-    public static int nextID(String nomfile)
-    {
-        int id = 0;
-        try(Scanner sc = new Scanner(new File(nomfile)))
-        {
-           while(sc.hasNextLine())
-           {
-               String linea = sc.nextLine();
-               String[] tokens = linea.split("\\|");
-               id = Integer.parseInt(tokens[0]);
-           }
-        }
-        catch(Exception e)
-        {
-        }
-        return id+1;
-    }
       
     private static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
     // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
@@ -147,9 +130,9 @@ public class Util {
         me.printStackTrace();   //Si se produce un error
     }
 }
-    public static void crearArchivoHash(ArrayList<Usuario> usuarios){
+    public static void crearArchivoHash(ArrayList<Usuario> usuarios, String nomfile){
         
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File("ClaveHash"))))
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
         {
             for (Usuario usu: usuarios){
                 pw.println(toHexString(getSHA(usu.getClave())));
@@ -171,10 +154,10 @@ public class Util {
         return false;
     }
    
-    public static Boolean validacionClave(String clave, File archivoHash){
+    public static Boolean validacionClave(String clave, String archivoHash){
         try{
         String claveHash = toHexString(getSHA(clave));
-        try(Scanner sc = new Scanner(new File("ClaveHash")))
+        try(Scanner sc = new Scanner(new File(archivoHash)))
         {
            while(sc.hasNextLine()){
                String linea = sc.nextLine();
@@ -192,8 +175,8 @@ public class Util {
         } 
         return false;
     }
-    public static Boolean validacionClaveCorreo(String correo, String clave, File archivoHash){
-        
+    public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash,ArrayList<Usuario> usuarios){//pedir lista usuarios
+        Util.crearArchivoHash(usuarios,archivoHash);
         return validacionClave(clave,archivoHash) && validacionCorreo(correo);
         
     }
