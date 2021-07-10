@@ -253,7 +253,12 @@ public class Vehiculo {
     
     public static void nextVehiculo(String nomfile, Vendedor vendedor)
     {
-        String placa = JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(nomfile);
+        String placa;
+        do{       
+           placa= JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        }while(Util.validacionPlaca(placa, vehiculos));
+               
         //validarplaca
         String marca = JOptionPane.showInputDialog(null, "Por favor ingrese la marca: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String modelo = JOptionPane.showInputDialog(null, "Por favor ingrese el modelo: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
