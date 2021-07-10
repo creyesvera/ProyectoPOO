@@ -17,6 +17,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -42,35 +49,7 @@ public class Util {
         }
         return id+1;
     }
-    private static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
-    // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
-    String remitente = "nomcuenta";  //Para la dirección nomcuenta@gmail.com
-
-    Properties props = System.getProperties();
-    props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
-    props.put("mail.smtp.user", remitente);
-    props.put("mail.smtp.clave", "miClaveDeGMail");    //La clave de la cuenta
-    props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
-    props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
-    props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
-
-    Session session = Session.getDefaultInstance(props);
-    MimeMessage message = new MimeMessage(session);
-
-    try {
-        message.setFrom(new InternetAddress(remitente));
-        message.addRecipient(Message.RecipientType.TO, destinatario);   //Se podrían añadir varios de la misma manera
-        message.setSubject(asunto);
-        message.setText(cuerpo);
-        Transport transport = session.getTransport("smtp");
-        transport.connect("smtp.gmail.com", remitente, clave);
-        transport.sendMessage(message, message.getAllRecipients());
-        transport.close();
-    }
-    catch (MessagingException me) {
-        me.printStackTrace();   //Si se produce un error
-    }
-}
+   
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException
     { 
         // Static getInstance method is called with hashing SHA 
@@ -99,16 +78,13 @@ public class Util {
         return hexString.toString(); 
     }
   
-    
-      
-    private static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+    public static void enviarConGMail(String destinatario,String remitente, String asunto, String cuerpo, String clave) {
     // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
-    String remitente = "nomcuenta";  //Para la dirección nomcuenta@gmail.com
-
+    
     Properties props = System.getProperties();
     props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
     props.put("mail.smtp.user", remitente);
-    props.put("mail.smtp.clave", "miClaveDeGMail");    //La clave de la cuenta
+    props.put("mail.smtp.clave", clave);    //La clave de la cuenta
     props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
     props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
     props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
@@ -118,7 +94,7 @@ public class Util {
 
     try {
         message.setFrom(new InternetAddress(remitente));
-        message.addRecipient(Message.RecipientType.TO, destinatario);   //Se podrían añadir varios de la misma manera
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));   //Se podrían añadir varios de la misma manera
         message.setSubject(asunto);
         message.setText(cuerpo);
         Transport transport = session.getTransport("smtp");
@@ -130,6 +106,7 @@ public class Util {
         me.printStackTrace();   //Si se produce un error
     }
 }
+  
     public static void crearArchivoHash(ArrayList<Usuario> usuarios, String nomfile){
         
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
@@ -143,6 +120,7 @@ public class Util {
         } 
         
     }
+    
     public static Boolean validacionCorreo(String correo){
         
         if ((correo.contains("@") && correo.contains("."))== true){
@@ -175,11 +153,13 @@ public class Util {
         } 
         return false;
     }
+    
     public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash,ArrayList<Usuario> usuarios){//pedir lista usuarios
         Util.crearArchivoHash(usuarios,archivoHash);
         return validacionClave(clave,archivoHash) && validacionCorreo(correo);
         
     }
+    
     public static Boolean validacionPlaca(String placa, ArrayList<Vehiculo> vehiculos){
         
         for(Vehiculo vehiculo: vehiculos){
