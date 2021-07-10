@@ -109,16 +109,16 @@ public class Usuario {
         return "Usuario{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + '}';
     }
     
-    public static void nextUsuario(String nomfile)
+    public static void nextUsuario(String nomfile, String nomfile_hash)
     {
         String correo_elec,clave;
         ArrayList<Usuario> usuarios = Usuario.readFile(nomfile);
-        /*do{*/
+        do{/**/
         correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
          //Realizar la validación
         clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         //El ciclo se repite
-        /*} while(!Util.validacionCorreoClave(correo_elec,clave, usuarios))*/
+        } while(!Util.validacionClaveCorreo(correo_elec, clave,nomfile_hash,usuarios));/**///Revisar
         
         
         String nombres = JOptionPane.showInputDialog(null, "Por favor ingrese sus nombres: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
