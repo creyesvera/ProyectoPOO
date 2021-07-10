@@ -139,10 +139,78 @@ public static void ofertarPorUnVehiculo(){
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
     }while(Util.validacionClaveCorreo(correo_elec1, clave,"claveHashCompradores.txt",compradores));/**/
     
+    ArrayList<Oferta> ofertas = Oferta.readFile("ofertas.txt");
+    int i = 0;
+    int ventana = 0, ventana2 = 0, ventana3 = 0;
     do{
-        
-        
-    }while(opcion1 !=4 );
+            
+       if ( i==0 ){
+           String[] botonesInicio = {"Siguiente", "Comprar", "Volver al Menú"};
+           ventana = JOptionPane.showOptionDialog(null,
+                          "Seleccione una opcion:\n"
+                           + ofertas.get(i),
+                           "CompraVenta",
+                           JOptionPane.DEFAULT_OPTION,
+                           JOptionPane.QUESTION_MESSAGE, null,
+                           botonesInicio, botonesInicio[0]);
+                
+           switch(ventana){
+               case 0:
+                  i+=1;
+                  break;
+               case 1:
+                  JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  break;
+               case 2:
+                  JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
+           }
+                
+       }else if(i==(ofertas.size()-1)){   
+            String[] botones = {"Anterior", "Comprar", "Volver al Menú"};
+            ventana2 = JOptionPane.showOptionDialog(null,
+                            "Seleccione una opcion:\n"
+                            + ofertas.get(i),
+                            "CompraVenta",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null,
+                            botones, botones[0]);
+                
+           switch(ventana2){
+               case 0:
+                  i-=1;
+                  break;
+               case 1:
+                  JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  break;
+               case 2:
+                  JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  break;
+                }                
+                
+       }else{
+           String[] botones = {"Anterior", "Siguiente", "Comprar", "Volver al Menú"};
+           ventana3 = JOptionPane.showOptionDialog(null,
+                           "Seleccione una opcion: \n"
+                           + ofertas.get(i),
+                           "CompraVenta",
+                           JOptionPane.DEFAULT_OPTION,
+                           JOptionPane.QUESTION_MESSAGE, null,
+                           botones, botones[0]);
+           switch(ventana3){
+               case 0:
+                  i -= 1;
+                  break;
+               case 1:
+                  i += 1;
+                  break;
+               case 2:
+                  JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  break;
+               case 3:
+                  JOptionPane.showMessageDialog(null, "Regresando. . .", "CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
+                }
+        }
+        }while((ventana != 1) && (ventana != 2) && (ventana2 != 1) && (ventana2 != 2) && (ventana3 !=2) && (ventana3 != 3));
                             
 }
 }
