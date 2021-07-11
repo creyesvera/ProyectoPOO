@@ -32,7 +32,7 @@ public class Vendedor extends Usuario{
 
     @Override
     public String toString() {
-        return "Vendedor{" +"id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + "vehiculos=" + vehiculos + '}';
+        return "Vendedor{" +"id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave  + '}';
     }
     
 
