@@ -121,16 +121,36 @@ public class Util {
         
     }
     
+    
     public static Boolean validacionCorreo(String correo){
         
-        if ((correo.contains("@") && correo.contains("."))== true){
+        if ((correo.contains("@") && correo.contains("."))){
             String[] correoArroba= correo.split("\\@");
             if(correoArroba.length == 2){
                 return true;
             }
         }
         return false;
-    }
+    } //true si el correo esta bien escrito
+    
+    public static Boolean correoInFile(String correo, String archivo){
+        try(Scanner sc = new Scanner(new File(archivo)))
+        {
+           while(sc.hasNextLine()){
+               String linea = sc.nextLine();
+               String[] tokens = linea.split("\\|");
+               if(tokens[3].equals(correo))
+                   return true;
+              /* if (claveHash == linea){
+               return true;
+           }*/
+           }   
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    } // true si el correo esta en el archivo
    
     public static Boolean validacionClave(String clave, String archivoHash){
         try{
@@ -139,9 +159,11 @@ public class Util {
         {
            while(sc.hasNextLine()){
                String linea = sc.nextLine();
-               if (claveHash == linea){
+               if(linea.equals(claveHash))
+                   return true;
+              /* if (claveHash == linea){
                return true;
-           }
+           }*/
            }   
         }
         catch(Exception e){
@@ -152,21 +174,22 @@ public class Util {
             System.out.println("Exception thrown for incorrect algorithm: " + e); 
         } 
         return false;
-    }
+    } //true si la clave esta en el archivoHash
     
-    public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash,ArrayList<Usuario> usuarios){//pedir lista usuarios
-        Util.crearArchivoHash(usuarios,archivoHash);
-        return validacionClave(clave,archivoHash) && validacionCorreo(correo);
+    //true si la clave existe en el archivo hash y el correo existe en el archivo
+    public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash,ArrayList<Usuario> usuarios, String archivo){//pedir lista usuarios
+        //Util.crearArchivoHash(usuarios,archivoHash);
+        return validacionClave(clave,archivoHash) && correoInFile(correo, archivo);//camibar validacion por correo por correoInFile
         
     }
     
     public static Boolean validacionPlaca(String placa, ArrayList<Vehiculo> vehiculos){
         
         for(Vehiculo vehiculo: vehiculos){
-            if(vehiculo.getPlaca()== placa)
-            return true;
+            if(vehiculo.getPlaca().equals(placa))
+                return true;
         }
         return false;
-    }
+    } // true si la placa esta en la lista de vehiculos
     
 }
