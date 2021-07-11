@@ -86,7 +86,7 @@ public static void ingresarNuevoVehiculo(){
     do{/**/
     correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores));/**/
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores));/**/
     Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
     Vehiculo.nextVehiculo("vendedores.txt", vendedor);
 }
