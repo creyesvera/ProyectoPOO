@@ -111,16 +111,12 @@ public class Usuario {
     
     public static void nextUsuario(String nomfile, String nomfile_hash)
     {
-        String correo_elec,clave;
-        ArrayList<Usuario> usuarios = Usuario.readFile(nomfile);
+        String correo_elec;
         do{/**/
         correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
-         //Realizar la validación
-        clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
-        //El ciclo se repite
-        } while(Util.validacionClaveCorreo(correo_elec, clave,nomfile_hash,usuarios));/**///Revisar
-        
-        
+         //Realizar la validación       
+        } while(Util.correoInFile(correo_elec, nomfile) || !Util.validacionCorreo(correo_elec));// repetir mientras que el correo este en el archivo o el correo NO este bien escrito
+        String clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE); 
         String nombres = JOptionPane.showInputDialog(null, "Por favor ingrese sus nombres: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         String apellidos = JOptionPane.showInputDialog(null, "Por favor ingrese sus apellidos: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
         String organizacion = JOptionPane.showInputDialog(null, "Por favor ingrese su organización: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
@@ -129,6 +125,10 @@ public class Usuario {
         int id = Util.nextID(nomfile);
         Usuario user = new Usuario(id, nombres, apellidos, correo_elec, organizacion,clave);
         user.saveFile(nomfile);
+        
+        ArrayList<Usuario> usuarios = Usuario.readFile(nomfile);
+        Util.crearArchivoHash(usuarios, nomfile_hash);
+        
     }
     
     public void saveFile(String nomfile){
