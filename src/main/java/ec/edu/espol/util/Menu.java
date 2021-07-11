@@ -99,7 +99,7 @@ public static void aceptarOferta(){
         correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
         clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
     }while(Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores));/**/
-    //Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
+    Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
     
     /*Validar placa*/
     String placa;
@@ -109,13 +109,15 @@ public static void aceptarOferta(){
     }while(Util.validacionPlaca(placa, vehiculos));
     
     Vehiculo vehiculo =  Vehiculo.searchByPlaca(vehiculos, placa);
+    
                             
     for (Oferta offer: vehiculo.getOfertas()){                            
         int resp=JOptionPane.showConfirmDialog(null,"Usas mucho el JOptionPane?");
                             
     if (JOptionPane.OK_OPTION == resp){
         Vendedor.vender(vehiculo, "vehiculos.txt", "ofertas.txt");
-    /*Funcion enviarCorreo*/
+        /*Funcion enviarCorreo*/
+        Util.enviarConGMail(offer.getComprador().getCorreo_elec(),vendedor.getCorreo_elec(), "Aceptacion Oferta de vehículo", "Buenas " + offer.getComprador().getNombres()+ " " + offer.getComprador().getApellidos() + " mediante la presente le informamos que su oferta por el vehículo con placa: " + offer.getVehiculo().getPlaca() + " ha sido aceptada. A continuación se presenta la oferta aceptada: \n" + offer,vendedor.getClave() );
         
     }
     else{
