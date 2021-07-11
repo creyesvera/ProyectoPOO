@@ -76,7 +76,7 @@ public class Menu {
 
 public static void registrarVendedor(){
     JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo vendedor.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-    Usuario.nextUsuario("vendedores.txt","claveHashVendededores.txt");
+    Usuario.nextUsuario("vendedores.txt","claveHashVendedores.txt");
 }
 
 public static void ingresarNuevoVehiculo(){
@@ -86,7 +86,7 @@ public static void ingresarNuevoVehiculo(){
     do{/**/
     correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores));/**/
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores,"vendedores.txt")); // repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
     Vehiculo.nextVehiculo("vendedores.txt", vendedor);
 }
@@ -98,7 +98,7 @@ public static void aceptarOferta(){
     do{/**/
         correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
         clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores));/**/
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores, "vendedores.txt"));// repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
     
     /*Validar placa*/
@@ -106,7 +106,7 @@ public static void aceptarOferta(){
     ArrayList<Vehiculo> vehiculos = Vehiculo.readFile("vehiculos.txt");        
     do{       
            placa= JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(Util.validacionPlaca(placa, vehiculos));
+    }while(!Util.validacionPlaca(placa, vehiculos)); //repetir mientras que la placa no este en el archivo
     
     Vehiculo vehiculo =  Vehiculo.searchByPlaca(vehiculos, placa);
     
@@ -133,13 +133,12 @@ public static void registrarNuevoComprador(){
 
 public static void ofertarPorUnVehiculo(){
     JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-    String clave, correo_elec1;
-    int opcion1 = 0;
+    String clave, correo_elec;
     ArrayList<Usuario> compradores = Usuario.readFile("compradores.txt");
     do{/**/
-    correo_elec1 = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
+    correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(Util.validacionClaveCorreo(correo_elec1, clave,"claveHashCompradores.txt",compradores));/**/
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt",compradores,"compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
     ArrayList<Oferta> ofertas = Oferta.readFile("ofertas.txt");
     int i = 0;
