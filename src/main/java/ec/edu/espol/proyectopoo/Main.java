@@ -29,7 +29,7 @@ public class Main {
                     Menu.SubMenuComprador();
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Muchas gracias por adquirir nuestros servicios.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Muchas gracias por usar nuestros servicios.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "No ha elegido una opción válida.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
