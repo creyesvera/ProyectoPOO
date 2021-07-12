@@ -142,6 +142,80 @@ public static void ofertarPorUnVehiculo(){
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt","compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
+    int opcion = 0;
+    String[] botones = {"Carro", "  Camioneta", "Moto", "Nada"};
+       opcion = JOptionPane.showOptionDialog(null,
+                            "Seleccione una opcion:\n",
+                            "CompraVenta",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null,
+                            botones, botones[0]);
+                
+           switch(opcion){
+               case 0:
+                   /*Carro*/
+                   break;
+               case 1:
+                   /*Camioneta*/
+                   break;
+               case 2:
+                   /*Moto*/
+                   break;
+               case 3:
+                   /*Nada*/
+                }    
+    
+    String recorridoMin;
+        do{
+            recorridoMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isNumeric(recorridoMin));
+        double recorridoMinD = Double.parseDouble(recorridoMin);    
+        
+    String recorridoMax;
+        do{
+            recorridoMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isNumeric(recorridoMax));
+        double recorridoMaxD = Double.parseDouble(recorridoMax);
+        
+    ArrayList<Vehiculo> vehiculoFiltradoRecorrido = Vehiculo.searchByRecorrido(vehiculos, recorridoMaxD, recorridoMinD);
+           
+    String yearMin;
+        do{
+            yearMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el año mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isInt(yearMin));
+        int yearMinD = Integer.parseInt(yearMin);    
+        
+    String yearMax;
+        do{
+            yearMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isNumeric(yearMax));
+        int yearMaxD = Integer.parseInt(yearMax);    
+        
+    ArrayList<Vehiculo> vehiculoFiltradoYear = Vehiculo.searchByPrecio(vehiculos, yearMaxD, yearMinD);           
+    
+    
+    String precioMin;
+        do{
+            precioMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isNumeric(precioMin));
+        double precioMinD = Double.parseDouble(precioMin);    
+        
+    String precioMax;
+        do{
+            precioMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isNumeric(precioMax));
+        double precioMaxD = Double.parseDouble(precioMax);
+    
+    ArrayList<Vehiculo> vehiculoFiltradoPrecio = Vehiculo.searchByPrecio(vehiculos, precioMaxD, precioMinD);
+    
+    
+    ArrayList<Vehiculo> vehiculosInterseccion1 = Vehiculo.interseccionList(vehiculoFiltradoRecorrido, vehiculoFiltradoYear);
+    ArrayList<Vehiculo> vehiculosFiltradosTotal = Vehiculo.interseccionList(vehiculosInterseccion1, vehiculoFiltradoPrecio);
+    
+
+    
+    
+
     int i = 0;
     int ventana = 0, ventana2 = 0, ventana3 = 0;
     do{
@@ -150,7 +224,7 @@ public static void ofertarPorUnVehiculo(){
            String[] botonesInicio = {"Siguiente", "Comprar", "Volver al Menú"};
            ventana = JOptionPane.showOptionDialog(null,
                           "Seleccione una opcion:\n"
-                           + vehiculo.get(i),
+                           + vehiculosFiltradosTotal.get(i),
                            "CompraVenta",
                            JOptionPane.DEFAULT_OPTION,
                            JOptionPane.QUESTION_MESSAGE, null,
@@ -167,15 +241,15 @@ public static void ofertarPorUnVehiculo(){
                   JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
            }
                 
-       }else if(i==(vehiculo.size()-1)){   
-            String[] botones = {"Anterior", "Comprar", "Volver al Menú"};
+       }else if(i==(vehiculosFiltradosTotal.size()-1)){   
+            String[] botonesInicio1 = {"Anterior", "Comprar", "Volver al Menú"};
             ventana2 = JOptionPane.showOptionDialog(null,
                             "Seleccione una opcion:\n"
-                            + vehiculo.get(i),
+                            + vehiculosFiltradosTotal.get(i),
                             "CompraVenta",
                             JOptionPane.DEFAULT_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null,
-                            botones, botones[0]);
+                            botonesInicio1, botonesInicio1[0]);
                 
            switch(ventana2){
                case 0:
@@ -190,14 +264,14 @@ public static void ofertarPorUnVehiculo(){
                 }                
                 
        }else{
-           String[] botones = {"Anterior", "Siguiente", "Comprar", "Volver al Menú"};
+           String[] botonesInicio2 = {"Anterior", "Siguiente", "Comprar", "Volver al Menú"};
            ventana3 = JOptionPane.showOptionDialog(null,
                            "Seleccione una opcion: \n"
-                           + vehiculo.get(i),
+                           + vehiculosFiltradosTotal.get(i),
                            "CompraVenta",
                            JOptionPane.DEFAULT_OPTION,
                            JOptionPane.QUESTION_MESSAGE, null,
-                           botones, botones[0]);
+                           botonesInicio2, botonesInicio2[0]);
            switch(ventana3){
                case 0:
                   i -= 1;
