@@ -251,7 +251,7 @@ public class Vehiculo {
         return "Vehiculo{" + "id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", tipo_motor=" + tipo_motor + ", year=" + year + ", recorrido=" + recorrido + ", color=" + color + ", tipo_combustible=" + tipo_combustible + ", vidrios=" + vidrios + ", transmicion=" + transmicion + ", traccion=" + traccion + ", precio=" + precio  + '}';
     }
     
-    public static void nextVehiculo(String nomfile, Vendedor vendedor)
+    public static void nextVehiculo(String nomfile, int id_vendedor)
     {
         ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(nomfile);
         String placa;
@@ -269,7 +269,7 @@ public class Vehiculo {
         String tipo_combustible = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de combustible: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         double precio =  Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
         int id = Util.nextID(nomfile);
-        int id_vendedor = vendedor.getId();
+        //int id_vendedor = vendedor.getId();
         int opcion;
         
         do{            
@@ -299,6 +299,7 @@ public class Vehiculo {
         
         
         vehicle.saveFile(nomfile);
+       
 
     }
     
@@ -330,9 +331,9 @@ public class Vehiculo {
         return vehiculos;
     }
     
-    public static void link(ArrayList<Usuario> vendedores, ArrayList<Vehiculo> vehiculos){
+        public static void link(ArrayList<Vendedor> vendedores, ArrayList<Vehiculo> vehiculos){
         for(Vehiculo v: vehiculos){
-            Vendedor ven = (Vendedor) Usuario.searchByID(vendedores, v.getId_vendedor());
+            Vendedor ven = Vendedor.searchByID(vendedores, v.getId_vendedor());
             ven.getVehiculos().add(v);
             v.setVendedor(ven);
         }
