@@ -69,8 +69,6 @@ public class Vehiculo {
         this.precio = precio;
         this.ofertas = new ArrayList<>();
         this.id_vendedor = id_vendedor;
-        
-        this.transmicion = "no";
     }
     
     //construcctor de camionetas tiene todo
@@ -358,13 +356,26 @@ public class Vehiculo {
         return vehiculos;
     }
     
-        public static void link(ArrayList<Vendedor> vendedores, ArrayList<Vehiculo> vehiculos){
+    public static void link(ArrayList<Vendedor> vendedores, ArrayList<Vehiculo> vehiculos){
         for(Vehiculo v: vehiculos){
             Vendedor ven = Vendedor.searchByID(vendedores, v.getId_vendedor());
             ven.getVehiculos().add(v);
             v.setVendedor(ven);
         }
     }
+        
+    public static void saveFile(String nomfile,ArrayList<Vehiculo> vehiculos){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
+        {
+            for (Vehiculo v: vehiculos)
+                pw.println(v.id+"|"+v.placa+"|"+v.marca+"|"+v.modelo+"|"+v.tipo_motor+"|"+v.year+"|"+v.recorrido+"|"+v.color+"|"+v.tipo_combustible+"|"+v.vidrios+"|"+v.transmicion+"|"+v.traccion+"|"+v.precio+"|"+v.id_vendedor);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+         
     
     public static Vehiculo searchByID(ArrayList<Vehiculo> vehiculos, int id)
     {
@@ -376,7 +387,7 @@ public class Vehiculo {
         return null;
     }
     
-    public static Vehiculo searchByPlaca(ArrayList<Vehiculo> vehiculos, String placa)
+        public static Vehiculo searchByPlaca(ArrayList<Vehiculo> vehiculos, String placa)
     {
         for(Vehiculo veh : vehiculos)
         {
@@ -385,26 +396,51 @@ public class Vehiculo {
         }
         return null;
     }
-
-    public static ArrayList<Vehiculo> searchByTipo(ArrayList<Vehiculo> vehiculos, String tipo)
-    {
+    
+    public static ArrayList<Vehiculo> searchByTipo(ArrayList<Vehiculo> vehiculos, String tipo){
         ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
-        for(Vehiculo veh : vehiculos)
-        {
-            if(veh.tipo_motor.equals(tipo))
-                filtro_vehiculos.add(veh);
+        if(tipo.equals("moto")){
+        for(Vehiculo vehiculo : vehiculos)
+            {
+            if (vehiculo.getVidrios()==0 && vehiculo.getTraccion().equals("null") && vehiculo.getTransmicion().equals("null")) //moto
+                    filtro_vehiculos.add(vehiculo);
+            }
         }
+        
+        if(tipo.equals("carro")){
+        for(Vehiculo vehiculo : vehiculos)
+            {
+            if (vehiculo.getVidrios()!=0 && vehiculo.getTraccion().equals("null") && !vehiculo.getTransmicion().equals("null")) //carro
+                    filtro_vehiculos.add(vehiculo);
+            }
+        }
+        if(tipo.equals("camioneta")){
+        for(Vehiculo vehiculo : vehiculos)
+            {
+            if (vehiculo.getVidrios()!=0 && !vehiculo.getTraccion().equals("null") && !vehiculo.getTransmicion().equals("null")) //camioneta
+                    filtro_vehiculos.add(vehiculo);
+            }
+        }
+        
+        else
+            filtro_vehiculos = vehiculos;
+            
+        
         return filtro_vehiculos;
-    }    
+    }
+    
     
     public static ArrayList<Vehiculo> searchByRecorrido(ArrayList<Vehiculo> vehiculos, double max_rec, double min_rec)
     {
         ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
         for(Vehiculo veh : vehiculos)
         {
-            if(veh.recorrido<= max_rec && veh.recorrido>= max_rec)
+            if(veh.recorrido<= max_rec && veh.recorrido>= min_rec)
                 filtro_vehiculos.add(veh);
         }
+        if(max_rec == 0 && min_rec == 0)
+            filtro_vehiculos = vehiculos;
+        
         return filtro_vehiculos;
     }
     
@@ -416,6 +452,8 @@ public class Vehiculo {
             if(veh.precio<= max_prec && veh.precio>= min_prec)
                 filtro_vehiculos.add(veh);
         }
+        if(max_prec == 0 && min_prec == 0)
+            filtro_vehiculos = vehiculos;
         return filtro_vehiculos;
     }
     
@@ -427,18 +465,11 @@ public class Vehiculo {
             if(veh.year<= max_year && veh.year >= min_year)
                 filtro_vehiculos.add(veh);
         }
+        if(max_year == 0 && min_year == 0)
+            filtro_vehiculos = vehiculos;
         return filtro_vehiculos;
     }
     
-    public static void saveFile(String nomfile,ArrayList<Vehiculo> vehiculos){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
-        {
-            for (Vehiculo v: vehiculos)
-                pw.println(v.id+"|"+v.placa+"|"+v.marca+"|"+v.modelo+"|"+v.tipo_motor+"|"+v.year+"|"+v.recorrido+"|"+v.color+"|"+v.tipo_combustible+"|"+v.vidrios+"|"+v.transmicion+"|"+v.traccion+"|"+v.precio+"|"+v.id_vendedor);
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
+   
     
 }
