@@ -126,7 +126,7 @@ public class Usuario {
         Usuario user = new Usuario(id, nombres, apellidos, correo_elec, organizacion,clave);
         user.saveFile(nomfile);
         
-        ArrayList<Usuario> usuarios = Usuario.readFile(nomfile);
+        ArrayList<Usuario> usuarios = Usuario.readFile_usuario(nomfile);
         Util.crearArchivoHash(usuarios, nomfile_hash);
         
     }
@@ -141,7 +141,7 @@ public class Usuario {
         }
     }
     
-    public static ArrayList<Usuario> readFile(String nomfile){
+    public static ArrayList<Usuario> readFile_usuario(String nomfile){
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
@@ -161,7 +161,7 @@ public class Usuario {
     }
     
     
-    public static Usuario searchByID(ArrayList<Usuario> usuarios, int id)
+    public static Usuario searchByID_usuario(ArrayList<Usuario> usuarios, int id)
     {
         for(Usuario user : usuarios)
         {
@@ -170,15 +170,3 @@ public class Usuario {
         }
         return null;
     }    
-    
-    public static Usuario searchByCorreoYClave(ArrayList<Usuario> usuarios, String correo,String clave)
-    {
-        for(Usuario user : usuarios)
-        {
-            if(user.correo_elec.equals(correo) && user.clave.equals(clave) )
-                return user;
-        }
-        return null;
-    }
-   
-}
