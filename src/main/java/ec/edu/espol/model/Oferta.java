@@ -136,9 +136,9 @@ public class Oferta {
         return ofertas;
     }
     
-    public static void link(ArrayList<Usuario> compradores, ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas){
+    public static void link(ArrayList<Comprador> compradores, ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas){
         for(Oferta o: ofertas){
-            Comprador comp = (Comprador) Usuario.searchByID(compradores, o.getId_comprador());
+            Comprador comp = Comprador.searchByID(compradores, o.getId_comprador());
             Vehiculo veh = Vehiculo.searchByID(vehiculos, o.getId_vehiculo());
             comp.getOfertas().add(o);
             veh.getOfertas().add(o);
