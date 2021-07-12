@@ -179,7 +179,6 @@ public class Util {
     //true si la clave existe en el archivo hash y el correo existe en el archivo
     
     public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash, String archivo){//pedir lista usuarios
-        //Util.crearArchivoHash(usuarios,archivoHash);
         ArrayList<Usuario> usuarios = Usuario.readFile_usuario(archivo);
         int ID = searchBycorreoID(correo,usuarios);
         if (Usuario.searchByID_usuario(usuarios, ID)==null){
