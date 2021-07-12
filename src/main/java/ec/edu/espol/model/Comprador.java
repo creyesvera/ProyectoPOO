@@ -6,8 +6,10 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,4 +45,43 @@ public class Comprador extends Usuario{
         new_oferta.saveFile(nomfile);
     }
     
+    public static ArrayList<Comprador> readFile(String nomfile){
+        ArrayList<Comprador> usuarios = new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(nomfile))){
+            while(sc.hasNextLine())
+            {
+                // linea = "1|20201010|eduardo|cruz"
+                String linea = sc.nextLine();
+                String[] tokens = linea.split("\\|");
+                Comprador user = new Comprador(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]);
+                usuarios.add(user);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return usuarios;
+        
+    }
+    
+    
+    public static Comprador searchByID(ArrayList<Comprador> usuarios, int id)
+    {
+        for(Comprador user : usuarios)
+        {
+            if(user.id == id)
+                return user;
+        }
+        return null;
+    }    
+    
+    public static Comprador searchByCorreoYClave(ArrayList<Comprador> usuarios, String correo,String clave)
+    {
+        for(Comprador user : usuarios)
+        {
+            if(user.correo_elec.equals(correo) && user.clave.equals(clave) )
+                return user;
+        }
+        return null;
+    }
 }
