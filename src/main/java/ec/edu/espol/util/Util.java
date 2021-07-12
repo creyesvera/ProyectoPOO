@@ -177,9 +177,16 @@ public class Util {
     } //true si la clave esta en el archivoHash
     
     //true si la clave existe en el archivo hash y el correo existe en el archivo
-    public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash,ArrayList<Usuario> usuarios, String archivo){//pedir lista usuarios
+    
+    public static Boolean validacionClaveCorreo(String correo, String clave, String archivoHash, String archivo){//pedir lista usuarios
         //Util.crearArchivoHash(usuarios,archivoHash);
-        return validacionClave(clave,archivoHash) && correoInFile(correo, archivo);//camibar validacion por correo por correoInFile
+        ArrayList<Usuario> usuarios = Usuario.readFile_usuario(archivo);
+        int ID = searchBycorreoID(correo,usuarios);
+        if (Usuario.searchByID_usuario(usuarios, ID)==null){
+            return false;
+        }
+        String claveReal = Usuario.searchByID_usuario(usuarios, ID).getClave();
+        return claveReal.equals(clave) && validacionClave(clave,archivoHash) && correoInFile(correo, archivo);//camibar validacion por correo por correoInFile
         
     }
     
@@ -192,4 +199,14 @@ public class Util {
         return false;
     } // true si la placa esta en la lista de vehiculos
     
+    public static int searchBycorreoID(String correo,ArrayList<Usuario> usuarios){
+        for(Usuario user : usuarios)
+        {
+            if(user.getCorreo_elec().equals(correo))
+                return user.getId();
+        }
+        return -1;
+    }
+    
+
 }
