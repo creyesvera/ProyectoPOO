@@ -30,7 +30,7 @@ public class Vehiculo {
     protected String tipo_combustible;
     protected int vidrios;
     protected String transmicion;
-    protected double traccion;
+    protected String traccion;
     protected double precio;
     protected ArrayList<Oferta> ofertas;
     protected Vendedor vendedor; ////
@@ -74,7 +74,7 @@ public class Vehiculo {
     }
     
     //construcctor de camionetas tiene todo
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, int year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, double traccion, double precio, int id_vendedor) {
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipo_motor, int year, double recorrido, String color, String tipo_combustible, int vidrios, String transmicion, String traccion, double precio, int id_vendedor) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -181,11 +181,11 @@ public class Vehiculo {
         this.transmicion = transmicion;
     }
 
-    public double getTraccion() {
+    public String getTraccion() {
         return traccion;
     }
 
-    public void setTraccion(double traccion) {
+    public void setTraccion(String traccion) {
         this.traccion = traccion;
     }
 
@@ -263,11 +263,31 @@ public class Vehiculo {
         String marca = JOptionPane.showInputDialog(null, "Por favor ingrese la marca: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String modelo = JOptionPane.showInputDialog(null, "Por favor ingrese el modelo: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String tipo_motor = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de motor: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        int year = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el año: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
-        double recorrido = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el recorrido: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
+        
+        String year_s;
+        do{
+            year_s = JOptionPane.showInputDialog(null,"Por favor ingrese el año: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+         }while(!Util.isInt(year_s));
+        int year = Integer.parseInt(year_s);
+        
+        String recorrido_s;
+        do{
+            recorrido_s = JOptionPane.showInputDialog(null,"Por favor ingrese el recorrido: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+         }while(!Util.isNumeric(recorrido_s));
+        double recorrido = Double.parseDouble(recorrido_s);
+        
+        
+        
         String color = JOptionPane.showInputDialog(null, "Por favor ingrese el color: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
         String tipo_combustible = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de combustible: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        double precio =  Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
+        
+        String precio_s;
+        do{
+            precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+        }while(!Util.isNumeric(precio_s));
+        double precio = Double.parseDouble(precio_s);
+        
+        
         int id = Util.nextID(nomfile);
         //int id_vendedor = vendedor.getId();
         int opcion;
@@ -281,15 +301,22 @@ public class Vehiculo {
         }while(!(opcion <= 3 && opcion >= 0));
         int vidrios;
         String transmicion;            
-        double traccion;
+        String traccion;
         Vehiculo vehicle;
         if (opcion != 2){
-            vidrios = Integer.parseInt(JOptionPane.showInputDialog(null,"Por favor ingrese el numero de vidrios: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
+            String vidrios_s;
+            do{
+                vidrios_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el numero de vidrios: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            }while(!Util.isInt(vidrios_s));
+            vidrios = Integer.parseInt(vidrios_s);
+            
+            
             transmicion = JOptionPane.showInputDialog(null, "Por favor ingrese la transmicion: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
             //carros
             vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio,id_vendedor);
             if(opcion == 3){
-                traccion = Double.parseDouble(JOptionPane.showInputDialog(null,"Por favor ingrese la traccion: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE));
+                    traccion =  JOptionPane.showInputDialog(null,"Por favor ingrese la traccion: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                
                 //camionetas
                 vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio,id_vendedor);
             }
@@ -321,7 +348,7 @@ public class Vehiculo {
                 // linea = "1|20201010|eduardo|cruz"
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
-                Vehiculo vehicle = new Vehiculo(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Integer.parseInt(tokens[9]), tokens[10], Double.parseDouble(tokens[11]), Double.parseDouble(tokens[12]),Integer.parseInt(tokens[13]));
+                Vehiculo vehicle = new Vehiculo(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Integer.parseInt(tokens[9]), tokens[10], tokens[11], Double.parseDouble(tokens[12]),Integer.parseInt(tokens[13]));
                 vehiculos.add(vehicle);
             }
         }
