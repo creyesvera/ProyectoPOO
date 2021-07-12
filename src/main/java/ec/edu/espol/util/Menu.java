@@ -224,6 +224,7 @@ public static void ofertarPorUnVehiculo(){
 
     int i = 0;
     int ventana = 0, ventana2 = 0, ventana3 = 0;
+    String precio_s = null;
     do{
             
        if ( i==0 ){
@@ -242,7 +243,12 @@ public static void ofertarPorUnVehiculo(){
                   break;
                case 1:
                   JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  double precioOferta = Double.parseDouble(JOptionPane.showInputDialog("Introduzca el precio de su oferta"));
+                  
+                  do{
+                  precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el '.' como separador decimal: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  }while(!Util.isNumeric(precio_s));
+                  double precioOferta = Double.parseDouble(precio_s);
+                  compradorOferta.comprar(vehiculosFiltradosTotal.get(i), "ofertas.txt",precioOferta);
                   Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                   break;
                case 2:
@@ -265,7 +271,10 @@ public static void ofertarPorUnVehiculo(){
                   break;
                case 1:
                   JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  double precioOferta = Double.parseDouble(JOptionPane.showInputDialog("Introduzca el precio de su oferta"));
+                  do{
+                  precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el '.' como separador decimal: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  }while(!Util.isNumeric(precio_s));
+                  double precioOferta = Double.parseDouble(precio_s);
                   Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                   break;
                case 2:
@@ -291,7 +300,10 @@ public static void ofertarPorUnVehiculo(){
                   break;
                case 2:
                   JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  double precioOferta = Double.parseDouble(JOptionPane.showInputDialog("Introduzca el precio de su oferta"));
+                  do{
+                  precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el '.' como separador decimal: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  }while(!Util.isNumeric(precio_s));
+                  double precioOferta = Double.parseDouble(precio_s);
                   Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                   break;
                case 3:
