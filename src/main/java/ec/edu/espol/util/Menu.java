@@ -142,7 +142,8 @@ public static void ofertarPorUnVehiculo(){
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt","compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
-    int opcion = 0;
+        int opcion = 0;
+    String tipo;
     String[] botones = {"Carro", "  Camioneta", "Moto", "Nada"};
        opcion = JOptionPane.showOptionDialog(null,
                             "Seleccione una opcion:\n",
@@ -153,18 +154,21 @@ public static void ofertarPorUnVehiculo(){
                 
            switch(opcion){
                case 0:
-                   /*Carro*/
+                       tipo = "carro";                   
                    break;
                case 1:
-                   /*Camioneta*/
+                       tipo = "camioneta";
                    break;
                case 2:
-                   /*Moto*/
+                       tipo = "moto";
                    break;
                case 3:
-                   /*Nada*/
+                       tipo = "nada";
+                       break;
                 }    
     
+    ArrayList<Vehiculo> vehiculoFiltradoTipo = Vehiculo.searchByTipo(vehiculos, tipo);       
+           
     String recorridoMin;
         do{
             recorridoMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
@@ -210,7 +214,8 @@ public static void ofertarPorUnVehiculo(){
     
     
     ArrayList<Vehiculo> vehiculosInterseccion1 = Vehiculo.interseccionList(vehiculoFiltradoRecorrido, vehiculoFiltradoYear);
-    ArrayList<Vehiculo> vehiculosFiltradosTotal = Vehiculo.interseccionList(vehiculosInterseccion1, vehiculoFiltradoPrecio);
+    ArrayList<Vehiculo> vehiculosInterseccion2 = Vehiculo.interseccionList(vehiculoFiltradoTipo, vehiculoFiltradoPrecio);
+    ArrayList<Vehiculo> vehiculosFiltradosTotal = Vehiculo.interseccionList(vehiculosInterseccion1, vehiculosInterseccion2);
     
 
     
