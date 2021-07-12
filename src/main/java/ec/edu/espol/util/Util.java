@@ -210,8 +210,11 @@ public class Util {
     
     public static boolean isNumeric(String cadena){
 	try {
-		Double.parseDouble(cadena);
-		return true;
+		double d = Double.parseDouble(cadena);
+		if (d>= 0)
+                    return true;
+                else
+                    return false;
 	} catch (NumberFormatException nfe){
 		return false;
 	}
@@ -219,10 +222,14 @@ public class Util {
 
     public static boolean isInt(String cadena){
 	try {
-		Integer.parseInt(cadena);
-		return true;
+		int i = Integer.parseInt(cadena);
+                if (i>= 0)
+                    return true;
+                else
+                    return false;
 	} catch (NumberFormatException nfe){
 		return false;
 	}
 }
 }
+
