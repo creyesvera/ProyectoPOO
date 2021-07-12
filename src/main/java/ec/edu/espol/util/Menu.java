@@ -141,7 +141,7 @@ public static void ofertarPorUnVehiculo(){
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt","compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
-    Comprador compradorOferta = Comprador.searchByCorreoYClave(("compradores.txt"), correo_elec, clave);    
+    Comprador compradorOferta = Comprador.searchByCorreoYClave(Comprador.readFile("compradores.txt"), correo_elec, clave);    
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
         int opcion = 0;
     String tipo = null;
