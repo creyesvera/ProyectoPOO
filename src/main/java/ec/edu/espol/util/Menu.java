@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ec.edu.espol.util;
+import ec.edu.espol.model.Comprador;
 import ec.edu.espol.model.Oferta;
 import javax.swing.JOptionPane;
 import ec.edu.espol.model.Usuario;
@@ -82,24 +83,25 @@ public static void registrarVendedor(){
 public static void ingresarNuevoVehiculo(){
     JOptionPane.showMessageDialog(null, "Aquí se ingresa un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
     String clave, correo_elec;
-    ArrayList<Usuario> vendedores = Usuario.readFile("vendedores.txt");
+    ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
     do{/**/
     correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores,"vendedores.txt")); // repetir mientras que  NO el correo y la clave existan en el archivo
-    Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
-    Vehiculo.nextVehiculo("vendedores.txt", vendedor);
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt")); // repetir mientras que  NO el correo y la clave existan en el archivo
+    Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
+    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId());
+    Vehiculo.link(vendedores, Vehiculo.readFile("vehiculos.txt"));
 }
 
 public static void aceptarOferta(){
     JOptionPane.showMessageDialog(null, "Aquí se acepta la oferta.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-    ArrayList<Usuario> vendedores = Usuario.readFile("vendedores.txt");
+    ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
     String correo_elec,clave;
     do{/**/
         correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
         clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt",vendedores, "vendedores.txt"));// repetir mientras que  NO el correo y la clave existan en el archivo
-    Vendedor vendedor = (Vendedor) Usuario.searchByCorreoYClave(vendedores, correo_elec, clave);
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt"));// repetir mientras que  NO el correo y la clave existan en el archivo
+    Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
     
     /*Validar placa*/
     String placa;
@@ -134,13 +136,12 @@ public static void registrarNuevoComprador(){
 public static void ofertarPorUnVehiculo(){
     JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
     String clave, correo_elec;
-    ArrayList<Usuario> compradores = Usuario.readFile("compradores.txt");
     do{/**/
     correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt",compradores,"compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
+    }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt","compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
-    ArrayList<Oferta> ofertas = Oferta.readFile("ofertas.txt");
+    ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
     int i = 0;
     int ventana = 0, ventana2 = 0, ventana3 = 0;
     do{
@@ -149,7 +150,7 @@ public static void ofertarPorUnVehiculo(){
            String[] botonesInicio = {"Siguiente", "Comprar", "Volver al Menú"};
            ventana = JOptionPane.showOptionDialog(null,
                           "Seleccione una opcion:\n"
-                           + ofertas.get(i),
+                           + vehiculo.get(i),
                            "CompraVenta",
                            JOptionPane.DEFAULT_OPTION,
                            JOptionPane.QUESTION_MESSAGE, null,
@@ -166,11 +167,11 @@ public static void ofertarPorUnVehiculo(){
                   JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
            }
                 
-       }else if(i==(ofertas.size()-1)){   
+       }else if(i==(vehiculo.size()-1)){   
             String[] botones = {"Anterior", "Comprar", "Volver al Menú"};
             ventana2 = JOptionPane.showOptionDialog(null,
                             "Seleccione una opcion:\n"
-                            + ofertas.get(i),
+                            + vehiculo.get(i),
                             "CompraVenta",
                             JOptionPane.DEFAULT_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null,
@@ -192,7 +193,7 @@ public static void ofertarPorUnVehiculo(){
            String[] botones = {"Anterior", "Siguiente", "Comprar", "Volver al Menú"};
            ventana3 = JOptionPane.showOptionDialog(null,
                            "Seleccione una opcion: \n"
-                           + ofertas.get(i),
+                           + vehiculo.get(i),
                            "CompraVenta",
                            JOptionPane.DEFAULT_OPTION,
                            JOptionPane.QUESTION_MESSAGE, null,
@@ -212,6 +213,7 @@ public static void ofertarPorUnVehiculo(){
                 }
         }
         }while((ventana != 1) && (ventana != 2) && (ventana2 != 1) && (ventana2 != 2) && (ventana3 !=2) && (ventana3 != 3));
-                            
+                   
+    Oferta.link(Comprador.readFile("compradores.txt"),Vehiculo.readFile("vehiculos.txt"), Oferta.readFile("ofertas.txt"));
 }
 }
