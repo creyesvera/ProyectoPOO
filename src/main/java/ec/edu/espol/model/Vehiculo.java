@@ -470,6 +470,16 @@ public class Vehiculo {
         return filtro_vehiculos;
     }
     
-   
+    public static ArrayList<Vehiculo> interseccionList(ArrayList<Vehiculo> vehiculos1,ArrayList<Vehiculo> vehiculos2){
+        ArrayList<Vehiculo> filtro_vehiculos = new ArrayList<>();
+        for(Vehiculo veh1 : vehiculos1){
+           for(Vehiculo veh2 : vehiculos2){
+            if(veh1.equals(veh2))
+               filtro_vehiculos.add(veh1);
+           
+           }
+       }
+        return filtro_vehiculos;
+    }
     
 }
