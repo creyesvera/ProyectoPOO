@@ -114,7 +114,7 @@ public static void aceptarOferta(){
     
                             
     for (Oferta offer: vehiculo.getOfertas()){                            
-        int resp=JOptionPane.showConfirmDialog(null,"Usas mucho el JOptionPane?");
+        int resp=JOptionPane.showConfirmDialog(null, offer);
                             
     if (JOptionPane.OK_OPTION == resp){
         Vendedor.vender(vehiculo, "vehiculos.txt", "ofertas.txt");
@@ -141,9 +141,10 @@ public static void ofertarPorUnVehiculo(){
     clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt","compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
+    Comprador compradorOferta = Comprador.searchByCorreoYClave(("compradores.txt"), correo_elec, clave);    
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
         int opcion = 0;
-    String tipo;
+    String tipo = null;
     String[] botones = {"Carro", "  Camioneta", "Moto", "Nada"};
        opcion = JOptionPane.showOptionDialog(null,
                             "Seleccione una opcion:\n",
@@ -167,7 +168,7 @@ public static void ofertarPorUnVehiculo(){
                        break;
                 }    
     
-    ArrayList<Vehiculo> vehiculoFiltradoTipo = Vehiculo.searchByTipo(vehiculos, tipo);       
+    ArrayList<Vehiculo> vehiculoFiltradoTipo = Vehiculo.searchByTipo(vehiculo, tipo);       
            
     String recorridoMin;
         do{
@@ -181,7 +182,7 @@ public static void ofertarPorUnVehiculo(){
         }while(!Util.isNumeric(recorridoMax));
         double recorridoMaxD = Double.parseDouble(recorridoMax);
         
-    ArrayList<Vehiculo> vehiculoFiltradoRecorrido = Vehiculo.searchByRecorrido(vehiculos, recorridoMaxD, recorridoMinD);
+    ArrayList<Vehiculo> vehiculoFiltradoRecorrido = Vehiculo.searchByRecorrido(vehiculo, recorridoMaxD, recorridoMinD);
            
     String yearMin;
         do{
@@ -195,7 +196,7 @@ public static void ofertarPorUnVehiculo(){
         }while(!Util.isNumeric(yearMax));
         int yearMaxD = Integer.parseInt(yearMax);    
         
-    ArrayList<Vehiculo> vehiculoFiltradoYear = Vehiculo.searchByPrecio(vehiculos, yearMaxD, yearMinD);           
+    ArrayList<Vehiculo> vehiculoFiltradoYear = Vehiculo.searchByPrecio(vehiculo, yearMaxD, yearMinD);           
     
     
     String precioMin;
@@ -210,7 +211,7 @@ public static void ofertarPorUnVehiculo(){
         }while(!Util.isNumeric(precioMax));
         double precioMaxD = Double.parseDouble(precioMax);
     
-    ArrayList<Vehiculo> vehiculoFiltradoPrecio = Vehiculo.searchByPrecio(vehiculos, precioMaxD, precioMinD);
+    ArrayList<Vehiculo> vehiculoFiltradoPrecio = Vehiculo.searchByPrecio(vehiculo, precioMaxD, precioMinD);
     
     
     ArrayList<Vehiculo> vehiculosInterseccion1 = Vehiculo.interseccionList(vehiculoFiltradoRecorrido, vehiculoFiltradoYear);
@@ -241,6 +242,8 @@ public static void ofertarPorUnVehiculo(){
                   break;
                case 1:
                   JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  double precioOferta = Double.parseDouble(JOptionPane.showInputDialog("Introduzca el precio de su oferta"));
+                  Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                   break;
                case 2:
                   JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
@@ -262,6 +265,8 @@ public static void ofertarPorUnVehiculo(){
                   break;
                case 1:
                   JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  double precioOferta = Double.parseDouble(JOptionPane.showInputDialog("Introduzca el precio de su oferta"));
+                  Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                   break;
                case 2:
                   JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
@@ -286,6 +291,8 @@ public static void ofertarPorUnVehiculo(){
                   break;
                case 2:
                   JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                  double precioOferta = Double.parseDouble(JOptionPane.showInputDialog("Introduzca el precio de su oferta"));
+                  Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                   break;
                case 3:
                   JOptionPane.showMessageDialog(null, "Regresando. . .", "CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
@@ -294,5 +301,7 @@ public static void ofertarPorUnVehiculo(){
         }while((ventana != 1) && (ventana != 2) && (ventana2 != 1) && (ventana2 != 2) && (ventana3 !=2) && (ventana3 != 3));
                    
     Oferta.link(Comprador.readFile("compradores.txt"),Vehiculo.readFile("vehiculos.txt"), Oferta.readFile("ofertas.txt"));
+    
+    
 }
 }
