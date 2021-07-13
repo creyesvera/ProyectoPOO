@@ -109,17 +109,22 @@ public class Usuario {
         return "Usuario{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", correo_elec=" + correo_elec + ", organizacion=" + organizacion + ", clave=" + clave + '}';
     }
     
-    public static void nextUsuario(String nomfile, String nomfile_hash)
+    public static void nextUsuario(String nomfile, String nomfile_hash, Scanner sc)
     {
         String correo_elec;
         do{/**/
-        correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+            System.out.println("Por favor ingrese su correo electrónico: ");
+            correo_elec = sc.next();
          //Realizar la validación       
         } while(Util.correoInFile(correo_elec, nomfile) || !Util.validacionCorreo(correo_elec));// repetir mientras que el correo este en el archivo o el correo NO este bien escrito
-        String clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE); 
-        String nombres = JOptionPane.showInputDialog(null, "Por favor ingrese sus nombres: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
-        String apellidos = JOptionPane.showInputDialog(null, "Por favor ingrese sus apellidos: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
-        String organizacion = JOptionPane.showInputDialog(null, "Por favor ingrese su organización: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);        
+        System.out.println("Por favor ingrese su clave: "); 
+        String clave = sc.next();
+        System.out.println("Por favor ingrese sus nombres: "); 
+        String nombres = sc.next();       
+        System.out.println("Por favor ingrese sus apellidos: ");
+        String apellidos = sc.next();  
+        System.out.println("Por favor ingrese su organización: "); 
+        String organizacion = sc.next();       
                
        
         int id = Util.nextID(nomfile);
