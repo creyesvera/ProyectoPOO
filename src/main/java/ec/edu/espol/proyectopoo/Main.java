@@ -23,16 +23,16 @@ public class Main {
             System.out.println("3. Salir");
             System.out.println("Una vez escrita la opción, pulse la tecla Enter");
             
-            opcionSeleccionada = sn.nextInt();
+            opcionSeleccionada = sn.next();
             
             switch (opcionSeleccionada) {
-                case 1: 
+                case "1": 
                     Menu.SubMenuVendedor();
                     break;
-                case 2:
+                case "2":
                     Menu.SubMenuComprador();
                     break;
-                case 3:
+                case "3":
                     System.out.println("Muchas gracias por usar nuestros servicios");
                     break;
                 default:
