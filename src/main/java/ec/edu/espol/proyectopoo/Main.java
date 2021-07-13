@@ -5,7 +5,7 @@
  */
 package ec.edu.espol.proyectopoo;
 import ec.edu.espol.util.Menu;
-import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 /**
  *
@@ -16,11 +16,14 @@ public class Main {
     public static void main(String[] args) {
         int opcionSeleccionada;
         do{
-        opcionSeleccionada = Integer.parseInt(JOptionPane.showInputDialog(null, "Menu"
-                            + "\n1. Vendedor."
-                            + "\n2. Comprador."
-                            + "\n3. Salir."
-                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));
+            
+            System.out.println("1. Vendedor");
+            System.out.println("2. Comprador");
+            System.out.println("3. Salir");
+            System.out.println("Una vez escrita la opción, pulse la tecla Enter");
+            
+            opcionSeleccionada = sn.nextInt();
+            
             switch (opcionSeleccionada) {
                 case 1: 
                     Menu.SubMenuVendedor();
@@ -29,10 +32,10 @@ public class Main {
                     Menu.SubMenuComprador();
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Muchas gracias por usar nuestros servicios.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("Muchas gracias por usar nuestros servicios");
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "No ha elegido una opción válida.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("No ha elegido una opción válida");
                     break;
             }
         }while(opcionSeleccionada !=3);
