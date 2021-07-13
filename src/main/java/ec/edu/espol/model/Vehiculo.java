@@ -249,54 +249,64 @@ public class Vehiculo {
         return "Vehiculo{" + "id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", tipo_motor=" + tipo_motor + ", year=" + year + ", recorrido=" + recorrido + ", color=" + color + ", tipo_combustible=" + tipo_combustible + ", vidrios=" + vidrios + ", transmicion=" + transmicion + ", traccion=" + traccion + ", precio=" + precio  + '}';
     }
     
-    public static void nextVehiculo(String nomfile, int id_vendedor)
+    public static void nextVehiculo(String nomfile, int id_vendedor, Scanner sc)
     {
         ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(nomfile);
         String placa;
-        do{       
-           placa= JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        do{
+           System.out.println("Por favor ingrese el numero de placa: ");
+           placa= sc.next();
         }while(Util.validacionPlaca(placa, vehiculos));
                
         //validarplaca
-        String marca = JOptionPane.showInputDialog(null, "Por favor ingrese la marca: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        String modelo = JOptionPane.showInputDialog(null, "Por favor ingrese el modelo: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        String tipo_motor = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de motor: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        System.out.println("Por favor ingrese la marca: ");
+        String marca = sc.next();
+        System.out.println("Por favor ingrese el modelo: ");
+        String modelo = sc.next();
+        System.out.println("Por favor ingrese el tipo de motor: ");
+        String tipo_motor = sc.next();
         
         String year_s;
         do{
-            year_s = JOptionPane.showInputDialog(null,"Por favor ingrese el año: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el año: ");
+            year_s = sc.next();
          }while(!Util.isInt(year_s));
         int year = Integer.parseInt(year_s);
         
         String recorrido_s;
         do{
-            recorrido_s = JOptionPane.showInputDialog(null,"Por favor ingrese el recorrido: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el recorrido: ");
+            recorrido_s = sc.next();
          }while(!Util.isNumeric(recorrido_s));
         double recorrido = Double.parseDouble(recorrido_s);
         
         
-        
-        String color = JOptionPane.showInputDialog(null, "Por favor ingrese el color: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
-        String tipo_combustible = JOptionPane.showInputDialog(null, "Por favor ingrese el tipo de combustible: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        System.out.println("Por favor ingrese el color: ");
+        String color = sc.next();
+        System.out.println("Por favor ingrese el tipo de combustible: ");
+        String tipo_combustible = sc.next();
         
         String precio_s;
         do{
-            precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el precio: ");
+            precio_s =  sc.next();
         }while(!Util.isNumeric(precio_s));
         double precio = Double.parseDouble(precio_s);
         
         
         int id = Util.nextID(nomfile);
         //int id_vendedor = vendedor.getId();
-        int opcion;
+        String opcion_s;
         
         do{            
-            opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Por favor digite:"
+            System.out.println("Por favor digite:"
                             + "\n1. Si el vehículo es un carro."
                             + "\n2. Si el vehículo es una moto."
                             + "\n3. Si el vehículo es una camioneta."
-                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                                                
-        }while(!(opcion <= 3 && opcion >= 0));
+                            + "\nUna vez escrita la opción, pulse la tecla Enter");
+            opcion_s = sc.next();                                                
+        }while(!Util.isInt(opcion_s) || !(Integer.parseInt(opcion_s) <= 3 && Integer.parseInt(opcion_s) > 0));
+        int opcion = Integer.parseInt(opcion_s);
         int vidrios;
         String transmicion;            
         String traccion;
@@ -304,16 +314,18 @@ public class Vehiculo {
         if (opcion != 2){
             String vidrios_s;
             do{
-                vidrios_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el numero de vidrios: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Por favor ingrese el numero de vidrios: ");
+                vidrios_s = sc.next(); 
             }while(!Util.isInt(vidrios_s));
             vidrios = Integer.parseInt(vidrios_s);
             
-            
-            transmicion = JOptionPane.showInputDialog(null, "Por favor ingrese la transmicion: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+            System.out.println("Por favor ingrese la transmicion: ");
+            transmicion = sc.next(); 
             //carros
             vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio,id_vendedor);
             if(opcion == 3){
-                    traccion =  JOptionPane.showInputDialog(null,"Por favor ingrese la traccion: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("Por favor ingrese la traccion: ");
+                    traccion =  sc.next(); 
                 
                 //camionetas
                 vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio,id_vendedor);
@@ -343,7 +355,6 @@ public class Vehiculo {
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {
-                // linea = "1|20201010|eduardo|cruz"
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
                 Vehiculo vehicle = new Vehiculo(Integer.parseInt(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Integer.parseInt(tokens[9]), tokens[10], tokens[11], Double.parseDouble(tokens[12]),Integer.parseInt(tokens[13]));
