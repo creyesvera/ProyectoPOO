@@ -11,95 +11,110 @@ import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.model.Vendedor;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author Daniel Bejarano
  */
 public class Menu {
+    Scanner sc = new Scanner(System.in);
     private Menu(){}
 
-    public static void SubMenuVendedor() {
+    public static void SubMenuVendedor(Scanner sc) {
         int opcionSubmenu;
         do{
+               
+            System.out.println("1. Registrar un nuevo vendedor.");
+            System.out.println("2. Ingresar un nuevo vehículo.");
+            System.out.println("3. Aceptar oferta.");
+            System.out.println("4. Regresar.");
             
-            opcionSubmenu = Integer.parseInt(JOptionPane.showInputDialog(null, "Vendedor"
-                    + "\n1. Registrar un nuevo vendedor."
-                    + "\n2. Ingresar un nuevo vehículo."
-                    + "\n3. Aceptar oferta."
-                    + "\n4. Regresar."
-                    + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));
+            opcionSubmenu = sc.next();
+            
             switch (opcionSubmenu){
-                case 1:
+                case "1":
                     Menu.registrarVendedor();
                     break;
-                case 2:
+                case "2":
                     Menu.ingresarNuevoVehiculo();
                     break;
-                case 3:
+                case "3":
                     Menu.aceptarOferta();
                     break;
-                case 4:
-                    JOptionPane.showMessageDialog(null, "Regresando . . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                case "4":
+                    System.out.println("Regresando. . .");                    
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "No se ha elegido una opción válida","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("No ha elegido una opción válida");             
                     break;
             }
-        }while(opcionSubmenu != 4);        
+        }while(!"4".equals(OpcionSubmenu));        
     }
     
-    public static void SubMenuComprador(){
+    public static void SubMenuComprador(Scanner sc){
         int opcionSubmenu;
         do{
-           opcionSubmenu = Integer.parseInt(JOptionPane.showInputDialog(null, "Comprador"
-                            + "\n1. Registrar un nuevo comprador."
-                            + "\n2. Ofertar por un vehículo."
-                            + "\n3. Regresar ."
-                            + "\nUna vez escrita la opción, pulse la tecla Enter", "CompraVende", JOptionPane.QUESTION_MESSAGE));                    
-                    switch (opcionSubmenu){
-                        case 1:
-                            Menu.registrarNuevoComprador();
-                            break;
-                        case 2:
-                            Menu.ofertarPorUnVehiculo();
-                            break;
 
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "Regresando....","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(null, "No se ha elegido una opción válida","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                            break;
+            System.out.println("1. Registrar un nuevo comprador.");
+            System.out.println("2. Ofertar por un vehículo.");
+            System.out.println("3. Regresar.");
+            System.out.println("Una vez escrita la opción, pulse la tecla Enter.");
+            
+            opcionSubmenu = sc.next();            
+            switch (opcionSubmenu){
+                case "1":
+                    Menu.registrarNuevoComprador();
+                    break;
+                case 2":
+                    Menu.ofertarPorUnVehiculo();
+                    break;
+                case "3":
+                    System.out.println("Regresando. . .");                             
+                    break;
+                default:
+                    System.out.println("No se ha elegido una opción válida");                     
+                    break;
                     }
-                }while(opcionSubmenu != 3);        
+        }while(!"3".equals(OpcionSubmenu));        
     }    
 
-public static void registrarVendedor(){
-    JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo vendedor.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-    Usuario.nextUsuario("vendedores.txt","claveHashVendedores.txt");
+public static void registrarVendedor(Scanner sc){   
+    System.out.println("Aquí se registra un nuevo vendedor.");
+    vendedor = sc.nextLine();
+    Usuario.nextUsuario("vendedores.txt","claveHashVendedores.txt",vendedor);
 }
 
-public static void ingresarNuevoVehiculo(){
-    JOptionPane.showMessageDialog(null, "Aquí se ingresa un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+public static void ingresarNuevoVehiculo(Scanner sc){
+
+    System.out.println("Aquí se ingresa un nuevo vendedor.");
+
     String clave, correo_elec;
     ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
     do{/**/
-    correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
-    clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        System.out.println("Por favor ingrese su correo electrónico: ");
+        correo_elec = sc.next();
+        
+        System.out.println("Por favor ingrese su clave: ");
+        clave = sc.next();      
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt")); // repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
-    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId());
+    vehiculo = sc.nextLine();
+    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId(), vehiculo);
     Vehiculo.link(vendedores, Vehiculo.readFile("vehiculos.txt"));
 }
 
 public static void aceptarOferta(){
     JOptionPane.showMessageDialog(null, "Aquí se acepta la oferta.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+    System.out.println("Aquí se acepta la oferta. ");
     ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
     String correo_elec,clave;
-    do{/**/
-        correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
-        clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+    do{
+        System.out.println("Por favor ingrese su correo electrónico: ");
+        correo_elec = sc.next();
+        
+        System.out.println("Por favor ingrese su clave: ");
+        clave = sc.next();        
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt"));// repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
     
@@ -107,7 +122,8 @@ public static void aceptarOferta(){
     String placa;
     ArrayList<Vehiculo> vehiculos = Vehiculo.readFile("vehiculos.txt");        
     do{       
-           placa= JOptionPane.showInputDialog(null, "Por favor ingrese el numero de placa: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+        System.out.println("Por favor ingrese su placa: ");
+        placa = sc.next(); 
     }while(!Util.validacionPlaca(placa, vehiculos)); //repetir mientras que la placa no este en el archivo
     
     Vehiculo vehiculo =  Vehiculo.searchByPlaca(vehiculos, placa);
@@ -130,6 +146,8 @@ public static void aceptarOferta(){
 
 public static void registrarNuevoComprador(){
     JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo compador.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+    System.out.println("Aquí se registra un nuevo comprador");
+    clave = sc.next();     
     Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt");  
 }
 
@@ -143,27 +161,27 @@ public static void ofertarPorUnVehiculo(){
     
     Comprador compradorOferta = Comprador.searchByCorreoYClave(Comprador.readFile("compradores.txt"), correo_elec, clave);    
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
-        int opcion = 0;
-    String tipo = null;
+    
+    String opcion, tipo;
+
     String[] botones = {"Carro", "  Camioneta", "Moto", "Nada"};
-       opcion = JOptionPane.showOptionDialog(null,
-                            "Seleccione una opcion:\n",
-                            "CompraVenta",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null,
-                            botones, botones[0]);
-                
+ 
+            System.out.println("1. Carro.");
+            System.out.println("2. Camioneta");
+            System.out.println("3. Moto");
+            System.out.println("4. Cualquiera");
+            System.out.println("Una vez escrita la opción, pulse la tecla Enter.");                
            switch(opcion){
-               case 0:
+               case "1":
                        tipo = "carro";                   
                    break;
-               case 1:
+               case "2":
                        tipo = "camioneta";
                    break;
-               case 2:
+               case "3":
                        tipo = "moto";
                    break;
-               case 3:
+               case "4":
                        tipo = "nada";
                        break;
                 }    
@@ -236,6 +254,8 @@ public static void ofertarPorUnVehiculo(){
                            JOptionPane.DEFAULT_OPTION,
                            JOptionPane.QUESTION_MESSAGE, null,
                            botonesInicio, botonesInicio[0]);
+           
+           
                 
            switch(ventana){
                case 0:
