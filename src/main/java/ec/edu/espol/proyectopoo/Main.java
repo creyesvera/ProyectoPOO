@@ -15,7 +15,8 @@ public class Main {
     
     public static void main(String[] args) {
         Scanner sn = new Scanner(System.in);
-        int opcionSeleccionada;
+        sn.nextLine();
+        String opcionSeleccionada;
         do{
             
             System.out.println("1. Vendedor");
@@ -23,14 +24,14 @@ public class Main {
             System.out.println("3. Salir");
             System.out.println("Una vez escrita la opción, pulse la tecla Enter");
             
-            opcionSeleccionada = sn.next();
+            opcionSeleccionada = sn.nextLine();
             
             switch (opcionSeleccionada) {
                 case "1": 
-                    Menu.SubMenuVendedor();
+                    Menu.SubMenuVendedor(sn);
                     break;
                 case "2":
-                    Menu.SubMenuComprador();
+                    Menu.SubMenuComprador(sn);
                     break;
                 case "3":
                     System.out.println("Muchas gracias por usar nuestros servicios");
@@ -39,6 +40,6 @@ public class Main {
                     System.out.println("No ha elegido una opción válida");
                     break;
             }
-        }while(opcionSeleccionada !=3);
+        }while(!"3".equals(opcionSeleccionada));
     }   
 }
