@@ -25,10 +25,12 @@ public class Menu {
         int opcionSubmenu;
         do{
                
-            System.out.println("1. Registrar un nuevo vendedor.");
-            System.out.println("2. Ingresar un nuevo vehículo.");
-            System.out.println("3. Aceptar oferta.");
-            System.out.println("4. Regresar.");
+            System.out.println("VENDEDOR"
+                              + "\n1. Registrar un nuevo vendedor."
+                              + "\n2. Ingresar un nuevo vehículo."
+                              + "\n3. Aceptar oferta."
+                              + "\n4. Regresar."
+                              + "Una vez escrita la opción, pulse la tecla Enter.");
             
             opcionSubmenu = sc.next();
             
@@ -56,10 +58,11 @@ public class Menu {
         int opcionSubmenu;
         do{
 
-            System.out.println("1. Registrar un nuevo comprador.");
-            System.out.println("2. Ofertar por un vehículo.");
-            System.out.println("3. Regresar.");
-            System.out.println("Una vez escrita la opción, pulse la tecla Enter.");
+            System.out.println("COMPRADOR"
+                               + "\n1. Registrar un nuevo comprador."
+                               + "\n2. Ofertar por un vehículo."
+                               + "\n3. Regresar."
+                               + "\n Una vez escrita la opción, pulse la tecla Enter.");            
             
             opcionSubmenu = sc.next();            
             switch (opcionSubmenu){
@@ -145,16 +148,19 @@ public static void aceptarOferta(Scanner sc){
 
 public static void registrarNuevoComprador(Scanner sc){
     System.out.println("Aquí se registra un nuevo comprador");
-    clave = sc.nextLine();     
-    Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt",sc);  
+    comprador = sc.nextLine();     
+    Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt",comprador);  
 }
 
 public static void ofertarPorUnVehiculo(Scanner sc){
     JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
     String clave, correo_elec;
-    do{/**/
-    correo_elec = JOptionPane.showInputDialog(null, "Por favor ingrese su correo electrónico: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);                            
-    clave = JOptionPane.showInputDialog(null, "Por favor ingrese su clave: ", "CompraVende", JOptionPane.QUESTION_MESSAGE);
+    do{
+        System.out.println("Por favor ingrese su correo electrónico: ");
+        correo_elec = sc.nextLine();
+        
+        System.out.println("Por favor ingrese su clave: ");
+        clave = sc.nextLine();         
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashCompradores.txt","compradores.txt"));/// repetir mientras que  NO el correo y la clave existan en el archivo
     
     Comprador compradorOferta = Comprador.searchByCorreoYClave(Comprador.readFile("compradores.txt"), correo_elec, clave);    
@@ -215,7 +221,6 @@ public static void ofertarPorUnVehiculo(Scanner sc){
         
     String yearMax;
         do{
-            yearMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("Por favor ingrese el año máximo: ");
             yearMax = sc.nextLine();             
         }while(!Util.isNumeric(yearMax));
@@ -245,10 +250,6 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     ArrayList<Vehiculo> vehiculosInterseccion2 = Vehiculo.interseccionList(vehiculoFiltradoTipo, vehiculoFiltradoPrecio);
     ArrayList<Vehiculo> vehiculosFiltradosTotal = Vehiculo.interseccionList(vehiculosInterseccion1, vehiculosInterseccion2);
     
-
-    
-    
-
     int i = 0;
     int ventana = 0, ventana2 = 0, ventana3 = 0;
     String precio_s = null;
