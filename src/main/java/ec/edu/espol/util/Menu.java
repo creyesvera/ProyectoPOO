@@ -90,7 +90,7 @@ public static void registrarVendedor(Scanner sc){
 
 public static void ingresarNuevoVehiculo(Scanner sc){
 
-    System.out.println("Aquí se ingresa un nuevo vendedor.");
+    System.out.println("Aquí se ingresa un nuevo vehículo.");
 
     String clave, correo_elec;
     ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
@@ -130,7 +130,7 @@ public static void aceptarOferta(Scanner sc){
     
     Vehiculo vehiculo =  Vehiculo.searchByPlaca(vehiculos, placa);
     
-                            
+    /*Corregir*/                        
     for (Oferta offer: vehiculo.getOfertas()){                            
         int resp=JOptionPane.showConfirmDialog(null, offer);
                             
