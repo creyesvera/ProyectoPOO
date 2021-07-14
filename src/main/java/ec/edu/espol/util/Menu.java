@@ -32,7 +32,7 @@ public class Menu {
                               + "\n4. Regresar."
                               + "Una vez escrita la opción, pulse la tecla Enter.");
             
-            opcionSubmenu = sc.next();
+            opcionSubmenu = sc.nextLine();
             
             switch (opcionSubmenu){
                 case "1":
@@ -64,7 +64,7 @@ public class Menu {
                                + "\n3. Regresar."
                                + "\n Una vez escrita la opción, pulse la tecla Enter.");            
             
-            opcionSubmenu = sc.next();            
+            opcionSubmenu = sc.nextLine();            
             switch (opcionSubmenu){
                 case "1":
                     Menu.registrarNuevoComprador(sc);
@@ -84,8 +84,7 @@ public class Menu {
 
 public static void registrarVendedor(Scanner sc){   
     System.out.println("Aquí se registra un nuevo vendedor.");
-    vendedor = sc.nextLine();
-    Usuario.nextUsuario("vendedores.txt","claveHashVendedores.txt",vendedor);
+    Usuario.nextUsuario("vendedores.txt","claveHashVendedores.txt",sc);
 }
 
 public static void ingresarNuevoVehiculo(Scanner sc){
@@ -102,8 +101,7 @@ public static void ingresarNuevoVehiculo(Scanner sc){
         clave = sc.nextLine();      
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt")); // repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
-    vehiculo = sc.nextLine();
-    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId(), vehiculo,sc);
+    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId(),sc);
     Vehiculo.link(vendedores, Vehiculo.readFile("vehiculos.txt"));
 }
 
@@ -152,8 +150,7 @@ public static void aceptarOferta(Scanner sc){
 
 public static void registrarNuevoComprador(Scanner sc){
     System.out.println("Aquí se registra un nuevo comprador");
-    comprador = sc.nextLine();     
-    Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt",comprador);  
+    Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt",sc);  
 }
 
 public static void ofertarPorUnVehiculo(Scanner sc){
@@ -260,15 +257,16 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     do{
             
        if ( i==0 ){
+           Sring ventana_s;
            do{
             System.out.println("OPCIONES"
                               + "\n1. Siguiente."
                               + "\n2. Comprar."
                               + "\n3. Volver al Menú."
                               + "Una vez escrita la opción, pulse la tecla Enter.");
-            ventana = sc.nextInt();                                                
-            }while(!Util.isInt(ventana) || !(Integer.parseInt(ventana) <= 3 && Integer.parseInt(ventana) > 0));           
-                           
+            ventana_s; = sc.nextLine();                                                
+            }while(!Util.isInt(ventana_s) || !(Integer.parseInt(ventana_s) <= 3 && Integer.parseInt(ventana_s) > 0));           
+             ventana = Integer.parseInt(ventana_s);
            switch(ventana){
                case 0:
                   i+=1;
@@ -284,20 +282,21 @@ public static void ofertarPorUnVehiculo(Scanner sc){
                    Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
                    break;
                case 2:
-                   JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
                    System.out.println("Regresando. . .");
            }
                 
        }else if(i==(vehiculosFiltradosTotal.size()-1)){   
+           Sring ventana2_s;
            do{
             System.out.println("OPCIONES"
                               + "\n1. Anterior."
                               + "\n2. Comprar."
                               + "\n3. Volver al Menú."
                               + "Una vez escrita la opción, pulse la tecla Enter.");
-            ventana2 = sc.nextInt();                                                
-            }while(!Util.isInt(ventana2) || !(Integer.parseInt(ventana2) <= 3 && Integer.parseInt(ventana2) > 0));           
-                
+            ventana2_s = sc.nextLine();                                                
+            }while(!Util.isInt(ventana2_s) || !(Integer.parseInt(ventana2_s) <= 3 && Integer.parseInt(ventana2_s) > 0));           
+               
+           ventana2 = Integer.parseInt(ventana2_s);
            switch(ventana2){
                case 0:
                    i-=1;
@@ -317,6 +316,7 @@ public static void ofertarPorUnVehiculo(Scanner sc){
                 }                
                 
        }else{
+           Sring ventana3_s;
            do{
             System.out.println("OPCIONES"
                               + "\n1. Anterior."
@@ -324,8 +324,9 @@ public static void ofertarPorUnVehiculo(Scanner sc){
                               + "\n3. Comprar."
                               + "\n4. Volver al Menú"
                               + "Una vez escrita la opción, pulse la tecla Enter.");
-            ventana3 = sc.nextInt();                                                
-            }while(!Util.isInt(ventana) || !(Integer.parseInt(ventana) <= 3 && Integer.parseInt(ventana) > 0));           
+            ventana3_s = sc.nextLine();                                                
+            }while(!Util.isInt(ventana3_s) || !(Integer.parseInt(ventana3_s) <= 3 && Integer.parseInt(ventana3_s) > 0));           
+            ventana3 = Integer.parseInt(ventana3_s);
             switch(ventana3){
                case 1:
                    i -= 1;
