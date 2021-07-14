@@ -188,13 +188,15 @@ public static void ofertarPorUnVehiculo(Scanner sc){
            
     String recorridoMin;
         do{
-            recorridoMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el recorrido mínimo: ");
+            recorridoMin = sc.nextLine(); 
         }while(!Util.isNumeric(recorridoMin));
         double recorridoMinD = Double.parseDouble(recorridoMin);    
         
     String recorridoMax;
         do{
-            recorridoMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el recorrido máximo: ");
+            recorridoMax = sc.nextLine(); 
         }while(!Util.isNumeric(recorridoMax));
         double recorridoMaxD = Double.parseDouble(recorridoMax);
         
@@ -202,13 +204,16 @@ public static void ofertarPorUnVehiculo(Scanner sc){
            
     String yearMin;
         do{
-            yearMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el año mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el año mínimo: ");
+            yearMin = sc.nextLine();             
         }while(!Util.isInt(yearMin));
         int yearMinD = Integer.parseInt(yearMin);    
         
     String yearMax;
         do{
             yearMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el año máximo: ");
+            yearMax = sc.nextLine();             
         }while(!Util.isNumeric(yearMax));
         int yearMaxD = Integer.parseInt(yearMax);    
         
@@ -217,13 +222,15 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     
     String precioMin;
         do{
-            precioMin =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio mínimo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el precio mínimo: ");
+            precioMin = sc.nextLine();             
         }while(!Util.isNumeric(precioMin));
         double precioMinD = Double.parseDouble(precioMin);    
         
     String precioMax;
         do{
-            precioMax =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio máximo: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Por favor ingrese el precio máximo: ");
+            precioMax = sc.nextLine();             
         }while(!Util.isNumeric(precioMax));
         double precioMaxD = Double.parseDouble(precioMax);
     
