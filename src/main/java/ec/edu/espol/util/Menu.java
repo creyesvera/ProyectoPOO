@@ -160,14 +160,19 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     Comprador compradorOferta = Comprador.searchByCorreoYClave(Comprador.readFile("compradores.txt"), correo_elec, clave);    
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
     
-    String opcion, tipo;
-
-    String[] botones = {"Carro", "  Camioneta", "Moto", "Nada"};
- 
-            System.out.println("Por favor ingrese el tipo de vehículo: "
-                               +"\n1. Carro."
-                               +"\n2. Camioneta"
-                               +"\n3. Moto")              
+    String opcion_s, tipo;
+        
+        do{            
+            System.out.println("Por favor digite:"
+                            + "\n1. Si el vehículo es un carro."
+                            + "\n2. Si el vehículo es una moto."
+                            + "\n3. Si el vehículo es una camioneta."
+                            + "\n4. Si no desea aplicar un filtro por tipo."   
+                            + "\nUna vez escrita la opción, pulse la tecla Enter");
+            opcion_s = sc.nextLine();                                                
+        }while(!Util.isInt(opcion_s) || !(Integer.parseInt(opcion_s) <= 3 && Integer.parseInt(opcion_s) > 0));
+        int opcion = Integer.parseInt(opcion_s);
+    
            switch(opcion){
                case "1":
                        tipo = "carro";                   
