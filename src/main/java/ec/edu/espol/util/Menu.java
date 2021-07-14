@@ -22,7 +22,7 @@ public class Menu {
     private Menu(){}
 
     public static void SubMenuVendedor(Scanner sc) {
-        int opcionSubmenu;
+        String opcionSubmenu;
         do{
                
             System.out.println("VENDEDOR"
@@ -51,11 +51,11 @@ public class Menu {
                     System.out.println("No ha elegido una opción válida");             
                     break;
             }
-        }while(!"4".equals(OpcionSubmenu));        
+        }while(!"4".equals(opcionSubmenu));        
     }
     
     public static void SubMenuComprador(Scanner sc){
-        int opcionSubmenu;
+        String opcionSubmenu;
         do{
 
             System.out.println("COMPRADOR"
@@ -79,7 +79,7 @@ public class Menu {
                     System.out.println("No se ha elegido una opción válida");                     
                     break;
                     }
-        }while(!"3".equals(OpcionSubmenu));        
+        }while(!"3".equals(opcionSubmenu));        
     }    
 
 public static void registrarVendedor(Scanner sc){   
@@ -147,6 +147,8 @@ public static void aceptarOferta(Scanner sc){
                             
 
 }
+    }
+}
 
 public static void registrarNuevoComprador(Scanner sc){
     System.out.println("Aquí se registra un nuevo comprador");
@@ -167,7 +169,7 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     Comprador compradorOferta = Comprador.searchByCorreoYClave(Comprador.readFile("compradores.txt"), correo_elec, clave);    
     ArrayList<Vehiculo> vehiculo = Vehiculo.readFile("vehiculos.txt");
     
-    String opcion_s, tipo;
+    String opcion_s, tipo = new String();
         
         do{            
             System.out.println("Por favor digite:"
