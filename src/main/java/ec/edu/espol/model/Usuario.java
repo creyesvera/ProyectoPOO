@@ -114,17 +114,17 @@ public class Usuario {
         String correo_elec;
         do{/**/
             System.out.println("Por favor ingrese su correo electrónico: ");
-            correo_elec = sc.next();
+            correo_elec = sc.nextLine();
          //Realizar la validación       
         } while(Util.correoInFile(correo_elec, nomfile) || !Util.validacionCorreo(correo_elec));// repetir mientras que el correo este en el archivo o el correo NO este bien escrito
         System.out.println("Por favor ingrese su clave: "); 
-        String clave = sc.next();
+        String clave = sc.nextLine();
         System.out.println("Por favor ingrese sus nombres: "); 
-        String nombres = sc.next();       
+        String nombres = sc.nextLine();       
         System.out.println("Por favor ingrese sus apellidos: ");
-        String apellidos = sc.next();  
+        String apellidos = sc.nextLine();  
         System.out.println("Por favor ingrese su organización: "); 
-        String organizacion = sc.next();       
+        String organizacion = sc.nextLine();       
                
        
         int id = Util.nextID(nomfile);
