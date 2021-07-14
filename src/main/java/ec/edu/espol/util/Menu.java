@@ -176,7 +176,7 @@ public static void ofertarPorUnVehiculo(Scanner sc){
                             + "\n4. Si no desea aplicar un filtro por tipo."   
                             + "\nUna vez escrita la opción, pulse la tecla Enter");
             opcion_s = sc.nextLine();                                                
-        }while(!Util.isInt(opcion_s) || !(Integer.parseInt(opcion_s) <= 3 && Integer.parseInt(opcion_s) > 0));
+        }while(!Util.isInt(opcion_s) || !(Integer.parseInt(opcion_s) <= 4 && Integer.parseInt(opcion_s) > 0));
         int opcion = Integer.parseInt(opcion_s);
     
            switch(opcion){
@@ -294,6 +294,7 @@ public static void ofertarPorUnVehiculo(Scanner sc){
                             JOptionPane.DEFAULT_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null,
                             botonesInicio1, botonesInicio1[0]);
+           
                 
            switch(ventana2){
                case 0:
