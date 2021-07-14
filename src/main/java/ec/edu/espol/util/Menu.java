@@ -153,7 +153,7 @@ public static void registrarNuevoComprador(Scanner sc){
 }
 
 public static void ofertarPorUnVehiculo(Scanner sc){
-    JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+    System.out.println("Aquí se oferta un nuevo vehículo.");
     String clave, correo_elec;
     do{
         System.out.println("Por favor ingrese su correo electrónico: ");
@@ -180,16 +180,16 @@ public static void ofertarPorUnVehiculo(Scanner sc){
         int opcion = Integer.parseInt(opcion_s);
     
            switch(opcion){
-               case "1":
+               case 1:
                        tipo = "carro";                   
                    break;
-               case "2":
+               case 2:
                        tipo = "camioneta";
                    break;
-               case "3":
+               case 3:
                        tipo = "moto";
                    break;
-               case "4":
+               case 4:
                        tipo = "nada";
                        break;
                 }    
@@ -256,89 +256,90 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     do{
             
        if ( i==0 ){
-           String[] botonesInicio = {"Siguiente", "Comprar", "Volver al Menú"};
-           ventana = JOptionPane.showOptionDialog(null,
-                          "Seleccione una opcion:\n"
-                           + vehiculosFiltradosTotal.get(i),
-                           "CompraVenta",
-                           JOptionPane.DEFAULT_OPTION,
-                           JOptionPane.QUESTION_MESSAGE, null,
-                           botonesInicio, botonesInicio[0]);
-           
-           
-                
+           do{
+            System.out.println("OPCIONES"
+                              + "\n1. Siguiente."
+                              + "\n2. Comprar."
+                              + "\n3. Volver al Menú."
+                              + "Una vez escrita la opción, pulse la tecla Enter.");
+            ventana = sc.nextInt();                                                
+            }while(!Util.isInt(ventana) || !(Integer.parseInt(ventana) <= 3 && Integer.parseInt(ventana) > 0));           
+                           
            switch(ventana){
                case 0:
                   i+=1;
                   break;
                case 1:
-                  JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  
-                  do{
-                  precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el '.' como separador decimal: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  }while(!Util.isNumeric(precio_s));
-                  double precioOferta = Double.parseDouble(precio_s);
-                  compradorOferta.comprar(vehiculosFiltradosTotal.get(i), "ofertas.txt",precioOferta);
-                  Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
-                  break;
+                   System.out.println("Usted ha seleccionado la oferta. ");
+                   do{
+                      System.out.println("Por favor ingrese el precio de su oferta: ");
+                      precio_s = sc.nextLine();
+                   }while(!Util.isNumeric(precio_s));
+                   double precioOferta = Double.parseDouble(precio_s);
+                   compradorOferta.comprar(vehiculosFiltradosTotal.get(i), "ofertas.txt",precioOferta);
+                   Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
+                   break;
                case 2:
-                  JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
+                   JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+                   System.out.println("Regresando. . .");
            }
                 
        }else if(i==(vehiculosFiltradosTotal.size()-1)){   
-            String[] botonesInicio1 = {"Anterior", "Comprar", "Volver al Menú"};
-            ventana2 = JOptionPane.showOptionDialog(null,
-                            "Seleccione una opcion:\n"
-                            + vehiculosFiltradosTotal.get(i),
-                            "CompraVenta",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null,
-                            botonesInicio1, botonesInicio1[0]);
-           
+           do{
+            System.out.println("OPCIONES"
+                              + "\n1. Anterior."
+                              + "\n2. Comprar."
+                              + "\n3. Volver al Menú."
+                              + "Una vez escrita la opción, pulse la tecla Enter.");
+            ventana2 = sc.nextInt();                                                
+            }while(!Util.isInt(ventana2) || !(Integer.parseInt(ventana2) <= 3 && Integer.parseInt(ventana2) > 0));           
                 
            switch(ventana2){
                case 0:
-                  i-=1;
-                  break;
+                   i-=1;
+                   break;
                case 1:
-                  JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  do{
-                  precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el '.' como separador decimal: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  }while(!Util.isNumeric(precio_s));
-                  double precioOferta = Double.parseDouble(precio_s);
-                  Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
-                  break;
+                   System.out.println("Usted ha seleccionado la oferta");
+                   do{                    
+                      System.out.println("Por favor ingrese el precio de su oferta: ");
+                      precio_s = sc.nextLine();                   
+                   }while(!Util.isNumeric(precio_s));
+                   double precioOferta = Double.parseDouble(precio_s);
+                   Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
+                   break;
                case 2:
-                  JOptionPane.showMessageDialog(null, "Regresando. . .","CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  break;
+                   System.out.println("Regresando. . .");
+                   break;
                 }                
                 
        }else{
-           String[] botonesInicio2 = {"Anterior", "Siguiente", "Comprar", "Volver al Menú"};
-           ventana3 = JOptionPane.showOptionDialog(null,
-                           "Seleccione una opcion: \n"
-                           + vehiculosFiltradosTotal.get(i),
-                           "CompraVenta",
-                           JOptionPane.DEFAULT_OPTION,
-                           JOptionPane.QUESTION_MESSAGE, null,
-                           botonesInicio2, botonesInicio2[0]);
-           switch(ventana3){
-               case 0:
-                  i -= 1;
-                  break;
+           do{
+            System.out.println("OPCIONES"
+                              + "\n1. Anterior."
+                              + "\n2. Siguiente."
+                              + "\n3. Comprar."
+                              + "\n4. Volver al Menú"
+                              + "Una vez escrita la opción, pulse la tecla Enter.");
+            ventana3 = sc.nextInt();                                                
+            }while(!Util.isInt(ventana) || !(Integer.parseInt(ventana) <= 3 && Integer.parseInt(ventana) > 0));           
+            switch(ventana3){
                case 1:
-                  i += 1;
-                  break;
+                   i -= 1;
+                   break;
                case 2:
-                  JOptionPane.showMessageDialog(null, "Usted ha adquirido la oferta, felicidades.", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  do{
-                  precio_s =  JOptionPane.showInputDialog(null,"Por favor ingrese el precio de su oferta usando el '.' como separador decimal: ", "CompraVende", JOptionPane.INFORMATION_MESSAGE);
-                  }while(!Util.isNumeric(precio_s));
-                  double precioOferta = Double.parseDouble(precio_s);
-                  Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
-                  break;
+                   i += 1;
+                   break;
                case 3:
-                  JOptionPane.showMessageDialog(null, "Regresando. . .", "CompraVende", JOptionPane.INFORMATION_MESSAGE);                        
+                   System.out.println("Usted ha seleccionado la oferta");                    
+                   do{
+                      System.out.println("Por favor ingrese el precio de su oferta: ");
+                      precio_s = sc.nextLine();                      
+                   }while(!Util.isNumeric(precio_s));
+                   double precioOferta = Double.parseDouble(precio_s);
+                   Oferta oferta = new Oferta(Util.nextID("ofertas.txt"),compradorOferta.getId(),vehiculosFiltradosTotal.get(i).getId(),precioOferta);
+                   break;
+               case 4:
+                   System.out.println("Regresando. . .");                        
                 }
         }
         }while((ventana != 1) && (ventana != 2) && (ventana2 != 1) && (ventana2 != 2) && (ventana3 !=2) && (ventana3 != 3));
