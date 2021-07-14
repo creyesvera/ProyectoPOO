@@ -132,18 +132,22 @@ public static void aceptarOferta(Scanner sc){
     
     /*Corregir*/                        
     for (Oferta offer: vehiculo.getOfertas()){                            
-        int resp=JOptionPane.showConfirmDialog(null, offer);
+            System.out.println(offer);
+            String opcion_s;
+            do{            
+            System.out.println("Por favor digite:"
+                            + "\n1. Aceptar oferta."
+                            + "\n2. Siguiente oferta."
+                            + "\nUna vez escrita la opción, pulse la tecla Enter");
+            opcion_s = sc.next();                                                
+        }while(!Util.isInt(opcion_s) || !(Integer.parseInt(opcion_s) <= 2 && Integer.parseInt(opcion_s) > 0));
+            int resp= Integer.parseInt(opcion_s);
                             
-    if (JOptionPane.OK_OPTION == resp){
+    if (resp == 1){
         Vendedor.vender(vehiculo, "vehiculos.txt", "ofertas.txt");
-        /*Funcion enviarCorreo*/
         Util.enviarConGMail(offer.getComprador().getCorreo_elec(),vendedor.getCorreo_elec(), "Aceptacion Oferta de vehículo", "Buenas " + offer.getComprador().getNombres()+ " " + offer.getComprador().getApellidos() + " mediante la presente le informamos que su oferta por el vehículo con placa: " + offer.getVehiculo().getPlaca() + " ha sido aceptada. A continuación se presenta la oferta aceptada: \n" + offer,vendedor.getClave() );
-        
-    }
-    else{
-                                            
-    }                            
-     }
+                            
+
 }
 
 public static void registrarNuevoComprador(Scanner sc){
