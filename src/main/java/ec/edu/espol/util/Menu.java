@@ -257,14 +257,14 @@ public static void ofertarPorUnVehiculo(Scanner sc){
     do{
             
        if ( i==0 ){
-           Sring ventana_s;
+           String ventana_s;
            do{
             System.out.println("OPCIONES"
                               + "\n1. Siguiente."
                               + "\n2. Comprar."
                               + "\n3. Volver al Menú."
                               + "Una vez escrita la opción, pulse la tecla Enter.");
-            ventana_s; = sc.nextLine();                                                
+            ventana_s = sc.nextLine();                                                
             }while(!Util.isInt(ventana_s) || !(Integer.parseInt(ventana_s) <= 3 && Integer.parseInt(ventana_s) > 0));           
              ventana = Integer.parseInt(ventana_s);
            switch(ventana){
@@ -286,7 +286,7 @@ public static void ofertarPorUnVehiculo(Scanner sc){
            }
                 
        }else if(i==(vehiculosFiltradosTotal.size()-1)){   
-           Sring ventana2_s;
+           String ventana2_s;
            do{
             System.out.println("OPCIONES"
                               + "\n1. Anterior."
@@ -316,7 +316,7 @@ public static void ofertarPorUnVehiculo(Scanner sc){
                 }                
                 
        }else{
-           Sring ventana3_s;
+           String ventana3_s;
            do{
             System.out.println("OPCIONES"
                               + "\n1. Anterior."
