@@ -66,7 +66,7 @@ public class Menu {
                 case "1":
                     Menu.registrarNuevoComprador(sc);
                     break;
-                case 2":
+                case "2":
                     Menu.ofertarPorUnVehiculo(sc);
                     break;
                 case "3":
