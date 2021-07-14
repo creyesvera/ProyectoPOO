@@ -255,41 +255,41 @@ public class Vehiculo {
         String placa;
         do{
            System.out.println("Por favor ingrese el numero de placa: ");
-           placa= sc.next();
+           placa= sc.nextLine();
         }while(Util.validacionPlaca(placa, vehiculos));
                
         //validarplaca
         System.out.println("Por favor ingrese la marca: ");
-        String marca = sc.next();
+        String marca = sc.nextLine();
         System.out.println("Por favor ingrese el modelo: ");
-        String modelo = sc.next();
+        String modelo = sc.nextLine();
         System.out.println("Por favor ingrese el tipo de motor: ");
-        String tipo_motor = sc.next();
+        String tipo_motor = sc.nextLine();
         
         String year_s;
         do{
             System.out.println("Por favor ingrese el año: ");
-            year_s = sc.next();
+            year_s = sc.nextLine();
          }while(!Util.isInt(year_s));
         int year = Integer.parseInt(year_s);
         
         String recorrido_s;
         do{
             System.out.println("Por favor ingrese el recorrido: ");
-            recorrido_s = sc.next();
+            recorrido_s = sc.nextLine();
          }while(!Util.isNumeric(recorrido_s));
         double recorrido = Double.parseDouble(recorrido_s);
         
         
         System.out.println("Por favor ingrese el color: ");
-        String color = sc.next();
+        String color = sc.nextLine();
         System.out.println("Por favor ingrese el tipo de combustible: ");
-        String tipo_combustible = sc.next();
+        String tipo_combustible = sc.nextLine();
         
         String precio_s;
         do{
             System.out.println("Por favor ingrese el precio: ");
-            precio_s =  sc.next();
+            precio_s =  sc.nextLine();
         }while(!Util.isNumeric(precio_s));
         double precio = Double.parseDouble(precio_s);
         
@@ -304,7 +304,7 @@ public class Vehiculo {
                             + "\n2. Si el vehículo es una moto."
                             + "\n3. Si el vehículo es una camioneta."
                             + "\nUna vez escrita la opción, pulse la tecla Enter");
-            opcion_s = sc.next();                                                
+            opcion_s = sc.nextLine();                                                
         }while(!Util.isInt(opcion_s) || !(Integer.parseInt(opcion_s) <= 3 && Integer.parseInt(opcion_s) > 0));
         int opcion = Integer.parseInt(opcion_s);
         int vidrios;
@@ -315,17 +315,17 @@ public class Vehiculo {
             String vidrios_s;
             do{
                 System.out.println("Por favor ingrese el numero de vidrios: ");
-                vidrios_s = sc.next(); 
+                vidrios_s = sc.nextLine(); 
             }while(!Util.isInt(vidrios_s));
             vidrios = Integer.parseInt(vidrios_s);
             
             System.out.println("Por favor ingrese la transmicion: ");
-            transmicion = sc.next(); 
+            transmicion = sc.nextLine(); 
             //carros
             vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, precio,id_vendedor);
             if(opcion == 3){
                     System.out.println("Por favor ingrese la traccion: ");
-                    traccion =  sc.next(); 
+                    traccion =  sc.nextLine(); 
                 
                 //camionetas
                 vehicle = new Vehiculo(id, placa, marca, modelo, tipo_motor, year, recorrido, color, tipo_combustible, vidrios, transmicion, traccion, precio,id_vendedor);
