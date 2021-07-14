@@ -164,11 +164,10 @@ public static void ofertarPorUnVehiculo(Scanner sc){
 
     String[] botones = {"Carro", "  Camioneta", "Moto", "Nada"};
  
-            System.out.println("1. Carro.");
-            System.out.println("2. Camioneta");
-            System.out.println("3. Moto");
-            System.out.println("4. Cualquiera");
-            System.out.println("Una vez escrita la opción, pulse la tecla Enter.");                
+            System.out.println("Por favor ingrese el tipo de vehículo: "
+                               +"\n1. Carro."
+                               +"\n2. Camioneta"
+                               +"\n3. Moto")              
            switch(opcion){
                case "1":
                        tipo = "carro";                   
