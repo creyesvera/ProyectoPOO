@@ -34,13 +34,13 @@ public class Menu {
             
             switch (opcionSubmenu){
                 case "1":
-                    Menu.registrarVendedor();
+                    Menu.registrarVendedor(sc);
                     break;
                 case "2":
-                    Menu.ingresarNuevoVehiculo();
+                    Menu.ingresarNuevoVehiculo(sc);
                     break;
                 case "3":
-                    Menu.aceptarOferta();
+                    Menu.aceptarOferta(sc);
                     break;
                 case "4":
                     System.out.println("Regresando. . .");                    
@@ -64,10 +64,10 @@ public class Menu {
             opcionSubmenu = sc.next();            
             switch (opcionSubmenu){
                 case "1":
-                    Menu.registrarNuevoComprador();
+                    Menu.registrarNuevoComprador(sc);
                     break;
                 case 2":
-                    Menu.ofertarPorUnVehiculo();
+                    Menu.ofertarPorUnVehiculo(sc);
                     break;
                 case "3":
                     System.out.println("Regresando. . .");                             
@@ -93,28 +93,27 @@ public static void ingresarNuevoVehiculo(Scanner sc){
     ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
     do{/**/
         System.out.println("Por favor ingrese su correo electrónico: ");
-        correo_elec = sc.next();
+        correo_elec = sc.nextLine();
         
         System.out.println("Por favor ingrese su clave: ");
-        clave = sc.next();      
+        clave = sc.nextLine();      
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt")); // repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
     vehiculo = sc.nextLine();
-    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId(), vehiculo);
+    Vehiculo.nextVehiculo("vehiculos.txt", vendedor.getId(), vehiculo,sc);
     Vehiculo.link(vendedores, Vehiculo.readFile("vehiculos.txt"));
 }
 
-public static void aceptarOferta(){
-    JOptionPane.showMessageDialog(null, "Aquí se acepta la oferta.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+public static void aceptarOferta(Scanner sc){
     System.out.println("Aquí se acepta la oferta. ");
     ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
     String correo_elec,clave;
     do{
         System.out.println("Por favor ingrese su correo electrónico: ");
-        correo_elec = sc.next();
+        correo_elec = sc.nextLine();
         
         System.out.println("Por favor ingrese su clave: ");
-        clave = sc.next();        
+        clave = sc.nextLine();        
     }while(!Util.validacionClaveCorreo(correo_elec, clave,"claveHashVendedores.txt","vendedores.txt"));// repetir mientras que  NO el correo y la clave existan en el archivo
     Vendedor vendedor = Vendedor.searchByCorreoYClave(vendedores, correo_elec, clave);
     
@@ -123,7 +122,7 @@ public static void aceptarOferta(){
     ArrayList<Vehiculo> vehiculos = Vehiculo.readFile("vehiculos.txt");        
     do{       
         System.out.println("Por favor ingrese su placa: ");
-        placa = sc.next(); 
+        placa = sc.nextLine(); 
     }while(!Util.validacionPlaca(placa, vehiculos)); //repetir mientras que la placa no este en el archivo
     
     Vehiculo vehiculo =  Vehiculo.searchByPlaca(vehiculos, placa);
@@ -144,14 +143,13 @@ public static void aceptarOferta(){
      }
 }
 
-public static void registrarNuevoComprador(){
-    JOptionPane.showMessageDialog(null, "Aquí se registra un nuevo compador.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
+public static void registrarNuevoComprador(Scanner sc){
     System.out.println("Aquí se registra un nuevo comprador");
-    clave = sc.next();     
-    Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt");  
+    clave = sc.nextLine();     
+    Usuario.nextUsuario("compradores.txt","claveHashCompradores.txt",sc);  
 }
 
-public static void ofertarPorUnVehiculo(){
+public static void ofertarPorUnVehiculo(Scanner sc){
     JOptionPane.showMessageDialog(null, "Aquí se oferta un nuevo vehículo.","CompraVende", JOptionPane.INFORMATION_MESSAGE);
     String clave, correo_elec;
     do{/**/
